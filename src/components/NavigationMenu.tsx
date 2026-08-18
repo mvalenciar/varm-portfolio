@@ -1,8 +1,6 @@
-import {
-  ActiveSessionType,
-  MenuOption,
-} from "@/interfaces/navigation.interface";
 import React from "react";
+import { ActiveSessionType } from "@/interfaces/navigation.interface";
+import { MENU_OPTIONS } from "@/lib/Constant";
 
 interface navigationMenuProps {
   onSelectOption: (id: ActiveSessionType) => void;
@@ -11,19 +9,11 @@ interface navigationMenuProps {
 export default function NavigationMenu({
   onSelectOption,
 }: navigationMenuProps) {
-  const menuOptions: MenuOption[] = [
-    { label: "Quién soy", id: "about" },
-    { label: "Proyectos", id: "projects" },
-    { label: "Skills", id: "skills" },
-    { label: "Educación", id: "education" },
-    { label: "Contacto", id: "contact" },
-  ];
-
   return (
     <div className="w-full z-20">
       {/* Reducimos el gap a 5 para compactar la lista vertical bajo el nuevo diseño */}
       <ul className="flex flex-col gap-5 text-center font-yuzarsif text-2xl md:text-3xl">
-        {menuOptions.map((option) => (
+        {MENU_OPTIONS.map((option) => (
           <li key={option.id} className="flex justify-center">
             <button
               className="relative cursor-pointer transition-all duration-300 ease-out tracking-[0.15em] uppercase

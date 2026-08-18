@@ -1,0 +1,46 @@
+import React from "react";
+
+interface PaperContainerProps {
+  title: string;
+  onBack: () => void;
+  children: React.ReactNode;
+}
+
+export default function PaperContainer({
+  title,
+  onBack,
+  children,
+}: PaperContainerProps) {
+  return (
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="relative w-full max-w-lg mx-auto p-6 md:p-8 
+                 bg-[#faf8f5] 
+                 border border-[#d7c9be]/60
+                 rounded-[255px_15px_225px_15px/15px_225px_15px_255px]
+                 shadow-[2px_5px_15px_rgba(0,0,0,0.05),inset_0_0_20px_rgba(240,235,225,0.5)]
+                 overflow-hidden animate-[bounce-fade-in_0.6s_ease-out_forwards]"
+    >
+      <div className="font-serif text-[#2b2b2b] leading-relaxed">
+        {/* Cabecera */}
+        <div className="flex justify-between items-center border-b border-dashed border-[#8a1c14]/30 pb-3 mb-5">
+          <h2 className="text-2xl font-bold text-[#8a1c14] tracking-wide">
+            {title}
+          </h2>
+          {/* Botón para volver */}
+          <button
+            onClick={onBack}
+            className="font-yuzarsif text-base tracking-widest text-stone-600 hover:text-[#8a1c14] transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] cursor-pointer"
+          >
+            ◀ VOLVER
+          </button>
+        </div>
+
+        {/* Cuerpo de la Ventana */}
+        <div className="text-stone-800 font-sans text-sm md:text-base selection:bg-amber-100">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}

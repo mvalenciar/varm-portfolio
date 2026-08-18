@@ -1,11 +1,21 @@
+import {
+  ActiveSessionType,
+  MenuOption,
+} from "@/interfaces/navigation.interface";
 import React from "react";
 
-export default function NavigationMenu() {
-  const menuOptions = [
+interface navigationMenuProps {
+  onSelectOption: (id: ActiveSessionType) => void;
+}
+
+export default function NavigationMenu({
+  onSelectOption,
+}: navigationMenuProps) {
+  const menuOptions: MenuOption[] = [
     { label: "Quién soy", id: "about" },
     { label: "Proyectos", id: "projects" },
     { label: "Skills", id: "skills" },
-    { label: "Historia Educación", id: "education" },
+    { label: "Educación", id: "education" },
     { label: "Contacto", id: "contact" },
   ];
 
@@ -20,6 +30,10 @@ export default function NavigationMenu() {
                          text-stone-900/80 hover:text-stone-950 font-medium
                          hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)]
                          hover:scale-105 origin-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                onSelectOption(option.id);
+              }}
             >
               {option.label}
             </button>

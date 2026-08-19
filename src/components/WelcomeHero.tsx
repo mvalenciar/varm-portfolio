@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import NavigationMenu from "./NavigationMenu";
 import PaperContainer from "./PaperContainer";
-import { CONFIG_SESIONES } from "@/lib/Constant";
+import { CONFIG_SESIONES } from "@/lib/constants";
 import { ActiveSessionType } from "@/interfaces/navigation.interface";
 
 export default function WelcomeHero() {

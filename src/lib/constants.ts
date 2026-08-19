@@ -11,27 +11,27 @@ import ContactSection from "@/components/ContactSection";
 // 🟢 Configuración de sesiones a cargar en el portafolio
 export const CONFIG_SESIONES: Record<
   Exclude<ActiveSessionType, null>,
-  { title: string; component: React.ReactNode }
+  { title: string; component: React.ComponentType }
 > = {
   about: {
     title: "Quién Soy // 自己紹介",
-    component: <AboutSection />,
+    component: AboutSection,
   },
   projects: {
     title: "Proyectos // 実績",
-    component: <ProjectsSection />,
+    component: ProjectsSection,
   },
   skills: {
     title: "Skills // 技術",
-    component: <SkillsSection />,
+    component: SkillsSection,
   },
   education: {
     title: "Educación // 修行",
-    component: <EducationSection />,
+    component: EducationSection,
   },
   contact: {
     title: "Contacto // 連絡先",
-    component: <ContactSection />,
+    component: ContactSection,
   },
 };
 

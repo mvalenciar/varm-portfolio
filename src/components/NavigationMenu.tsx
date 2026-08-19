@@ -1,6 +1,6 @@
 import React from "react";
 import { ActiveSessionType } from "@/interfaces/navigation.interface";
-import { MENU_OPTIONS } from "@/lib/Constant";
+import { MENU_OPTIONS } from "@/lib/constants";
 
 interface navigationMenuProps {
   onSelectOption: (id: ActiveSessionType) => void;

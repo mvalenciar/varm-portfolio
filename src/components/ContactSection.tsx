@@ -1,4 +1,4 @@
-import { CHANNELS_CONTACT } from "@/lib/Constant";
+import { CHANNELS_CONTACT } from "@/lib/constants";
 import React from "react";
 
 export default function ContactSection() {

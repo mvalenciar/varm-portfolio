@@ -3,13 +3,13 @@ import React from "react";
 interface PaperContainerProps {
   title: string;
   onBack: () => void;
-  children: React.ReactNode;
+  children: React.ComponentType;
 }
 
 export default function PaperContainer({
   title,
   onBack,
-  children,
+  children: Component,
 }: PaperContainerProps) {
   return (
     <div
@@ -38,7 +38,7 @@ export default function PaperContainer({
 
         {/* Cuerpo de la Ventana */}
         <div className="text-stone-800 font-sans text-sm md:text-base selection:bg-amber-100">
-          {children}
+          <Component />
         </div>
       </div>
     </div>

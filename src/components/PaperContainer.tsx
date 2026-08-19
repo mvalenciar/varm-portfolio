@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 interface PaperContainerProps {
   title: string;
@@ -11,15 +12,39 @@ export default function PaperContainer({
   onBack,
   children: Component,
 }: PaperContainerProps) {
+  // Referencia para el contenedor del papel
+  const paperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (paperRef.current) {
+      gsap.fromTo(
+        paperRef.current,
+        {
+          opacity: 0,
+          y: 50,
+          scale: 0.92,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "back.out(1.6)",
+        },
+      );
+    }
+  }, []);
+
   return (
     <div
+      ref={paperRef}
       onClick={(e) => e.stopPropagation()}
       className="relative w-full max-w-lg mx-auto p-6 md:p-8 
                  bg-[#faf8f5] 
                  border border-[#d7c9be]/60
                  rounded-[255px_15px_225px_15px/15px_225px_15px_255px]
                  shadow-[2px_5px_15px_rgba(0,0,0,0.05),inset_0_0_20px_rgba(240,235,225,0.5)]
-                 overflow-hidden animate-[bounce-fade-in_0.6s_ease-out_forwards]"
+                 overflow-hidden"
     >
       <div className="font-serif text-[#2b2b2b] leading-relaxed">
         {/* Cabecera */}

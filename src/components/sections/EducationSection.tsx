@@ -28,7 +28,7 @@ export default function EducationSection() {
 
   return (
     // Contenedor con scroll interno sutil por si en el futuro sigues sumando certificaciones
-    <div className="space-y-6 max-h-[300px] overflow-y-auto pr-1 font-sans">
+    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans">
       <div className="relative border-l border-stone-300 pl-4 ml-2 space-y-6">
         {hitosEducativos.map((hito, index) => (
           <div

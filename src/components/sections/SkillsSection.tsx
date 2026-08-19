@@ -56,7 +56,7 @@ export default function SkillsSection() {
   const habilidadesVisibles = habilidadesBD[categoriaActiva] || [];
 
   return (
-    <div className="flex flex-col h-full font-sans justify-between min-h-[300px]">
+    <div className="flex flex-col font-sans justify-between h-64 overflow-y-auto pr-1">
       <div>
         {/* 🕹️ MENÚ DE PESTAÑAS HORIZONTALES (ESTILO SELECCIÓN RPG) */}
         <div className="flex justify-around border-b border-stone-350 pb-2 mb-5">

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function ContactSection() {
   return (
-    <div className="space-y-5 font-sans animate-[fadeIn_0.4s_ease-out_both]">
+    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans animate-[fadeIn_0.4s_ease-out_both]">
       <p className="text-stone-700 text-xs md:text-sm leading-relaxed italic mb-4">
         ¿Tienes un proyecto en mente, buscas un perfil Full-Stack riguroso o
         quieres debatir sobre ciberseguridad defensiva? Mis canales están

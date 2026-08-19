@@ -44,9 +44,9 @@ export default function ProjectsSection() {
   const visibleProjects = allProjects.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col h-full justify-between font-sans">
+    <div className="flex flex-col justify-between font-sans space-y-4 h-64 overflow-y-auto pr-1">
       {/* 📦 LISTA DE PROYECTOS VISIBLES */}
-      <div className="space-y-5">
+      <div className="h-full">
         {visibleProjects.map((project) => (
           <div
             key={project.id}

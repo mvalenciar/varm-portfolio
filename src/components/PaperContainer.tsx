@@ -49,7 +49,7 @@ export default function PaperContainer({
       <div className="font-serif text-[#2b2b2b] leading-relaxed">
         {/* Cabecera */}
         <div className="flex justify-between items-center border-b border-dashed border-[#8a1c14]/30 pb-3 mb-5">
-          <h2 className="text-2xl font-bold text-[#8a1c14] tracking-wide">
+          <h2 className="text-xl font-bold text-[#8a1c14] tracking-wide">
             {title}
           </h2>
           {/* Botón para volver */}

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AboutSection() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 h-64 overflow-y-auto pr-1">
       <p className="leading-relaxed text-stone-700 font-medium font-sans">
         Hola, soy{" "}
         <strong className="text-stone-950">

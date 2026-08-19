@@ -4,25 +4,24 @@ export default function EducationSection() {
   // Tu historial real estructurado como hitos de formación
   const hitosEducativos = [
     {
-      periodo: "Pregrado Professional",
-      institucion: "UNAD (Univ. Nacional Abierta y a Distancia)",
-      titulo: "🎓 Ingeniería de Sistemas",
-      descripcion:
+      period: "Pregrado Professional",
+      institution: "UNAD (Univ. Nacional Abierta y a Distancia)",
+      title: "🎓 Ingeniería de Sistemas",
+      description:
         "Formación integral en ingeniería de software, arquitectura de sistemas, bases de datos y gestión de proyectos tecnológicos.",
     },
     {
-      periodo: "Estudio de Postgrado Complementario",
-      institucion: "Experto Universitario (Online)",
-      titulo: "🛡️ Fundamentos de Programación y Estructuras en C",
-      descripcion:
+      period: "Estudio de Postgrado Complementario",
+      institution: "Experto Universitario (Online)",
+      title: "🛡️ Fundamentos de Programación y Estructuras en C",
+      description:
         "Análisis teórico de algoritmos, gestión de punteros y memoria a bajo nivel. Enfoque útil para comprender el origen de vulnerabilidades arquitectónicas.",
     },
     {
-      periodo: "Educación Superior Técnica",
-      institucion: "SENA (Servicio Nacional de Aprendizaje)",
-      titulo:
-        "💻 Tecnólogo en Análisis y Desarrollo de Sistemas de Información",
-      descripcion:
+      period: "Educación Superior Técnica",
+      institution: "SENA (Servicio Nacional de Aprendizaje)",
+      title: "💻 Tecnólogo en Análisis y Desarrollo de Sistemas de Información",
+      description:
         "Inmersión práctica en el ciclo de vida del software, desarrollo lógico, maquetación y construcción de aplicaciones del mundo real.",
     },
   ];
@@ -43,13 +42,13 @@ export default function EducationSection() {
             {/* Contenido del hito */}
             <div className="flex flex-col gap-0.5">
               <span className="text-[10px] font-mono tracking-wider text-stone-500 uppercase font-semibold">
-                {hito.periodo} — {hito.institucion}
+                {hito.period} — {hito.institution}
               </span>
               <h4 className="font-serif text-base font-bold text-stone-900 tracking-wide mt-0.5">
-                {hito.titulo}
+                {hito.title}
               </h4>
               <p className="text-stone-700 text-xs md:text-sm mt-1 leading-relaxed">
-                {hito.descripcion}
+                {hito.description}
               </p>
             </div>
           </div>

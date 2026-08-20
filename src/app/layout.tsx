@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Image from "next/image";
 import CustomCursor from "@/components/CustomCursor";
+import FurinBell from "@/components/FurinBell";
 
 const amanojakuFont = localFont({
   src: "../assets/fonts/Amanojaku.otf",
@@ -27,6 +28,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
         {/* Componente cursor personalizado */}
         <CustomCursor />
+
+        <FurinBell />
 
         {/* Background fijo */}
         <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">

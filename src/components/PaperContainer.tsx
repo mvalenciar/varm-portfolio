@@ -35,6 +35,21 @@ export default function PaperContainer({
     }
   }, []);
 
+  const executeExitAndReturn = () => {
+    if (paperRef.current) {
+      gsap.to(paperRef.current, {
+        opacity: 0,
+        y: 60,
+        scale: 0.94,
+        duration: 0.4,
+        ease: "back.in",
+        onComplete: () => onBack(),
+      });
+    } else {
+      onBack();
+    }
+  };
+
   return (
     <div
       ref={paperRef}
@@ -54,7 +69,7 @@ export default function PaperContainer({
           </h2>
           {/* Botón para volver */}
           <button
-            onClick={onBack}
+            onClick={executeExitAndReturn}
             className="font-yuzarsif text-base tracking-widest text-stone-600 hover:text-[#8a1c14] transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] cursor-pointer"
           >
             ◀ VOLVER

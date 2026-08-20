@@ -2,6 +2,7 @@ import React from "react";
 import "./globals.css";
 import localFont from "next/font/local";
 import Image from "next/image";
+import CustomCursor from "@/components/CustomCursor";
 
 const amanojakuFont = localFont({
   src: "../assets/fonts/Amanojaku.otf",
@@ -24,6 +25,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
       <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
+        {/* Componente cursor personalizado */}
+        <CustomCursor />
+
         {/* Background fijo */}
         <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">
           <Image

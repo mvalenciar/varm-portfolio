@@ -73,7 +73,7 @@ export default function WelcomeHero() {
 
           {/* B. EL MENÚ PRINCIPAL: Se muestra si inició pero NO hay sección activa */}
           {isStarted && !activeSession && (
-            <div className="w-full absolute top-0 transition-all duration-500 opacity-100 animate-[fadeIn_0.5s_ease-out_both]">
+            <div className="w-full absolute top-0 opacity-100">
               <NavigationMenu
                 onSelectOption={(id: ActiveSessionType) => setActiveSession(id)}
               />

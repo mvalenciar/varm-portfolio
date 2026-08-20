@@ -24,6 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
       <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
+        {/* Background fijo */}
         <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">
           <Image
             src="/images/sakura-bg.jpg"

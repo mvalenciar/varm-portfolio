@@ -23,9 +23,17 @@
   };
 }
 
-body {
-  /* Forzado de fuente sans estilizada en textos comunes */
-  font-family: var(--font-sans);
+html,
+body,
+*,
+button,
+a,
+section,
+div {
+  cursor:
+    url("https://cdn.cursors-4u.net/previews/oxygen-cherry-5eda5de9-32.webp") 28
+      28,
+    auto !important;
 }
 
 /* 🎨 SCROLLBAR ARTESANAL PARA CONTENEDORES INTERNOS (WASHI PERGAMINO) */

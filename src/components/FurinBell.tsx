@@ -1,8 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useFurin } from "@/hooks/useFurin";
 
 export default function FurinBell() {
+  const { bellRef } = useFurin({ volume: 0.35 });
+
   const handleAdminClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Evita activar el inicio del Hero
     console.log("Disparando acceso al panel de administración...");
@@ -10,12 +14,13 @@ export default function FurinBell() {
 
   return (
     <div
+      ref={bellRef}
       onClick={handleAdminClick}
       /* Anclado arriba a la derecha. Tiene la animación 'swing' constante del viento */
-      className="fixed top-0 right-10 md:right-16 z-40 flex flex-col items-center animate-[swing_4s_ease-in-out_infinite] origin-top select-none group cursor-none"
+      className="fixed top-0 right-10 md:right-16 z-40 flex flex-col items-center origin-top select-none group cursor-none"
     >
       {/* 🧵 1. EL HILO (String) */}
-      <div className="w-[1px] h-12 md:h-16 bg-stone-500/60" />
+      <div className="w-px h-12 md:h-16 bg-stone-500/60" />
 
       {/* 🔔 2. LA CAMPANA DE CRISTAL (Glass Bell) */}
       {/* Moldeada con bordes redondeados asimétricos para simular cristal soplado a mano */}
@@ -25,7 +30,7 @@ export default function FurinBell() {
       </div>
 
       {/* 🧵 3. EL HILO INTERMEDIO */}
-      <div className="w-[1px] h-4 bg-stone-550/65" />
+      <div className="w-px h-4 bg-stone-550/65" />
 
       {/* 📜 4. LA CINTA DE PAPEL TRADICIONAL (Tanzaku) */}
       {/* Aquí aplicamos tu brillante idea: texto vertical, fondo crema washi y bordes limpios */}

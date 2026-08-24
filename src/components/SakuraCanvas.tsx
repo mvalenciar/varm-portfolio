@@ -82,6 +82,26 @@ export default function SakuraCanvas() {
     triggerWindBurst();
     const windInterval = setInterval(triggerWindBurst, 8000);
 
+    // Escuchador de tormenta pétalos
+    const triggerBlizzard = () => {
+      // Se dispara una ráfaga ultra veloz
+      gsap.to(windControllerRef, {
+        intensity: 8.5,
+        duration: 0.6,
+        ease: "power3.inOut",
+        // Configuramos para que al finalizar el efecto briza fuerte regrese a su estado tradicional
+        onComplete: () => {
+          gsap.to(windControllerRef, {
+            intensity: 0.4,
+            duration: 4.5,
+            ease: "slow(0.7, 0.7, false)",
+          });
+        },
+      });
+    };
+
+    window.addEventListener("change-section", triggerBlizzard);
+
     // Bucle algorítmico
     const render = () => {
       // Borra la pantalla por completo para dibujar el cuadro limpio
@@ -178,6 +198,7 @@ export default function SakuraCanvas() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("change-section", triggerBlizzard);
       clearInterval(windInterval);
       gsap.killTweensOf(windControllerRef);
 

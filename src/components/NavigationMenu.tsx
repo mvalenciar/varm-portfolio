@@ -62,6 +62,7 @@ export default function NavigationMenu({
               onClick={(e) => {
                 e.stopPropagation();
                 onSelectOption(option.id);
+                window.dispatchEvent(new Event("change-section"));
               }}
             >
               {option.label}

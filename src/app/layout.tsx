@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Image from "next/image";
 import CustomCursor from "@/components/CustomCursor";
 import FurinBell from "@/components/FurinBell";
+import SakuraCanvas from "@/components/SakuraCanvas";
 
 const amanojakuFont = localFont({
   src: "../assets/fonts/Amanojaku.otf",
@@ -26,6 +27,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
       <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
+        <SakuraCanvas />
+
         {/* Componente cursor personalizado */}
         <CustomCursor />
 

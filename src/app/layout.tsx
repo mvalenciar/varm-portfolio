@@ -5,6 +5,7 @@ import Image from "next/image";
 import CustomCursor from "@/components/CustomCursor";
 import FurinBell from "@/components/FurinBell";
 import SakuraCanvas from "@/components/SakuraCanvas";
+import AudioController from "@/components/AudioController";
 
 const amanojakuFont = localFont({
   src: "../assets/fonts/Amanojaku.otf",
@@ -27,12 +28,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
       <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
+        {/* Simulación física de fondo */}
         <SakuraCanvas />
 
-        {/* Componente cursor personalizado */}
+        {/* Controladores de interacción personalizados */}
         <CustomCursor />
-
         <FurinBell />
+        <AudioController />
 
         {/* Background fijo */}
         <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">

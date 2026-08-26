@@ -1,7 +1,10 @@
+import { usePortfolioAudio } from "@/context/AudioContext";
 import { CHANNELS_CONTACT } from "@/lib/constants";
 import React from "react";
 
 export default function ContactSection() {
+  const { playMokugyoSound, playHyoshigiSound } = usePortfolioAudio();
+
   return (
     <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans animate-[fadeIn_0.4s_ease-out_both]">
       <p className="text-stone-700 text-xs md:text-sm leading-relaxed italic mb-4">
@@ -32,6 +35,8 @@ export default function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-yuzarsif text-xs tracking-widest text-[#8a1c14] hover:text-stone-950 transition-all duration-300 hover:scale-105 mt-2 sm:mt-0 bg-stone-200/40 hover:bg-stone-200/80 border border-stone-300/60 px-3 py-1.5 rounded-sm shadow-sm text-center"
+              onClick={playMokugyoSound}
+              onMouseEnter={playHyoshigiSound}
             >
               {channel.labelButton}
             </a>

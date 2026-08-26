@@ -1,3 +1,4 @@
+import { usePortfolioAudio } from "@/context/AudioContext";
 import React, { useState } from "react";
 
 export default function ProjectsSection() {
@@ -43,6 +44,8 @@ export default function ProjectsSection() {
   const endIndex = projectsPerPage * currentPage;
   const visibleProjects = allProjects.slice(startIndex, endIndex);
 
+  const { playHyoshigiSound, playMokugyoSound } = usePortfolioAudio();
+
   return (
     <div className="flex flex-col justify-between font-sans space-y-4 h-64 overflow-y-auto pr-1">
       {/* 📦 LISTA DE PROYECTOS VISIBLES */}
@@ -78,8 +81,12 @@ export default function ProjectsSection() {
       <div className="flex justify-between items-center border-t border-dashed border-stone-300/60 pt-4 mt-6">
         <button
           disabled={currentPage === 1}
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            playMokugyoSound();
+          }}
           className="font-yuzarsif text-sm tracking-widest text-stone-500 hover:text-stone-950 disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-all hover:scale-105"
+          onMouseEnter={playHyoshigiSound}
         >
           ◀ ANTERIOR
         </button>
@@ -90,8 +97,12 @@ export default function ProjectsSection() {
 
         <button
           disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev + 1);
+            playMokugyoSound();
+          }}
           className="font-yuzarsif text-sm tracking-widest text-stone-500 hover:text-stone-950 disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-all hover:scale-105"
+          onMouseEnter={playHyoshigiSound}
         >
           SIGUIENTE ▶
         </button>

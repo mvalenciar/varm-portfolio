@@ -1,5 +1,6 @@
 "use client"; // 📱 Usamos estado para alternar entre las categorías de habilidades
 
+import { usePortfolioAudio } from "@/context/AudioContext";
 import {
   InventorySkills,
   SkillTabOption,
@@ -54,6 +55,7 @@ export default function SkillsSection() {
 
   // Capturamos el arreglo de habilidades según la pestaña activa utilizando su llave ("front", "back" o "qa")
   const habilidadesVisibles = habilidadesBD[categoriaActiva] || [];
+  const { playMokugyoSound } = usePortfolioAudio();
 
   return (
     <div className="flex flex-col font-sans justify-between h-64 overflow-y-auto pr-1">
@@ -63,7 +65,10 @@ export default function SkillsSection() {
           {pestañas.map((pestaña) => (
             <button
               key={pestaña.id}
-              onClick={() => setCategoriaActiva(pestaña.id)}
+              onClick={() => {
+                setCategoriaActiva(pestaña.id);
+                playMokugyoSound();
+              }}
               className={`font-yuzarsif text-xs sm:text-sm tracking-widest uppercase transition-all duration-300 cursor-pointer origin-center ${
                 categoriaActiva === pestaña.id
                   ? "text-[#8a1c14] font-bold scale-105 drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
@@ -77,7 +82,7 @@ export default function SkillsSection() {
 
         {/* 🌸 REJILLA DE HABILIDADES DINÁMICAS */}
         {/* Usamos grid con auto-rows para que si agregas más tecnologías, el diseño se acomode solo */}
-        <div className="grid grid-cols-2 gap-2 max-h-[220px] overflow-y-auto pr-1">
+        <div className="grid grid-cols-2 gap-2 max-h-55 overflow-y-auto pr-1">
           {habilidadesVisibles.map((skill, index) => (
             <div
               key={index}

@@ -51,7 +51,7 @@ export const CHANNELS_CONTACT = [
     socialNetwork: "✉️ Correo Electrónico",
     data: "miltonalonsovalenciarincon@gmail.com",
     action: "mailto:miltonalonsovalenciarincon@gmail.com",
-    labelButton: "Enviar Mensaje",
+    labelButton: "Env. Mensaje",
   },
   {
     socialNetwork: "💼 LinkedIn Profesional",

@@ -37,7 +37,11 @@ export default function WelcomeHero() {
       {/* 🏛️ EL ANCLA CENTRAL AUTOMÁTICA */}
       <div className="flex flex-col items-center w-full max-w-md h-110 relative justify-start z-10">
         {/* TÍTULO PRINCIPAL */}
-        <MainTitle isStarted={isStarted} activeSession={activeSession} />
+        <MainTitle
+          mainTitle="VARM"
+          isStarted={isStarted}
+          activeSession={activeSession}
+        />
 
         {/* 🔄 ZONA DE INTERCAMBIO DINÁMICO */}
         <div className="relative w-full flex flex-col items-center mt-4 h-72">

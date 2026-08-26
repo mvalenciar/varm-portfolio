@@ -19,7 +19,8 @@ export default function PaperContainer({
 
   const paperRef = useRef<HTMLDivElement>(null);
 
-  const { playPaperSound } = usePortfolioAudio();
+  const { playPaperSound, playMokugyoSound, playHyoshigiSound } =
+    usePortfolioAudio();
 
   useEffect(() => {
     if (paperRef.current) {
@@ -77,7 +78,12 @@ export default function PaperContainer({
           </h2>
           {/* Botón para volver */}
           <button
-            onClick={executeExitAndReturn}
+            onClick={(e) => {
+              e.preventDefault();
+              executeExitAndReturn();
+              playMokugyoSound();
+            }}
+            onMouseEnter={playHyoshigiSound}
             className="font-yuzarsif text-base tracking-widest text-stone-600 hover:text-[#8a1c14] transition-all duration-300 hover:scale-105 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.9)] cursor-pointer"
           >
             ◀ VOLVER

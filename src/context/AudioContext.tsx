@@ -15,7 +15,9 @@ interface AudioContextType {
   playWindSound: () => void;
   playFurinSound: () => void;
   playPaperSound: () => void;
-  playClickSound: () => void;
+  playHyoshigiSound: () => void;
+  playBrushPencilSound: () => void;
+  playMokugyoSound: () => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -27,26 +29,34 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const windRef = useRef<HTMLAudioElement | null>(null);
   const furinRef = useRef<HTMLAudioElement | null>(null);
   const paperRef = useRef<HTMLAudioElement | null>(null);
-  const clickRef = useRef<HTMLAudioElement | null>(null);
+  const hyoshigiRef = useRef<HTMLAudioElement | null>(null);
+  const brushPencilSoundRef = useRef<HTMLAudioElement | null>(null);
+  const mokugyoSoundRef = useRef<HTMLAudioElement | null>(null);
 
   // Carga de archivos de audio
   useEffect(() => {
     windRef.current = new Audio("/sounds/forestWindAndBirds.mp3");
     paperRef.current = new Audio("/sounds/paperSound.mp3");
     furinRef.current = new Audio("/sounds/furin.ogg");
-    clickRef.current = new Audio("/sounds/click.mp3");
+    hyoshigiRef.current = new Audio("/sounds/hyoshigi.mp3");
+    brushPencilSoundRef.current = new Audio("/sounds/brushPencil.mp3");
+    mokugyoSoundRef.current = new Audio("/sounds/mokugyo.flac");
 
     windRef.current.loop = true;
     windRef.current.volume = 0.25;
     furinRef.current.volume = 0.4;
     paperRef.current.volume = 0.5;
-    clickRef.current.volume = 0.3;
+    hyoshigiRef.current.volume = 0.3;
+    brushPencilSoundRef.current.volume = 0.5;
+    mokugyoSoundRef.current.volume = 0.3;
 
     return () => {
       windRef.current?.pause();
       paperRef.current?.pause();
       furinRef.current?.pause();
-      clickRef.current?.pause();
+      hyoshigiRef.current?.pause();
+      brushPencilSoundRef.current?.pause();
+      mokugyoSoundRef.current?.pause();
     };
   }, []);
 
@@ -94,10 +104,22 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     furinRef.current.play().catch(() => {});
   }, [isMuted]);
 
-  const playClickSound = useCallback(() => {
-    if (isMuted || !clickRef.current) return;
-    clickRef.current.currentTime = 0;
-    clickRef.current.play().catch(() => {});
+  const playHyoshigiSound = useCallback(() => {
+    if (isMuted || !hyoshigiRef.current) return;
+    hyoshigiRef.current.currentTime = 0;
+    hyoshigiRef.current.play().catch(() => {});
+  }, [isMuted]);
+
+  const playBrushPencilSound = useCallback(() => {
+    if (isMuted || !brushPencilSoundRef.current) return;
+    brushPencilSoundRef.current.currentTime = 0;
+    brushPencilSoundRef.current.play().catch(() => {});
+  }, [isMuted]);
+
+  const playMokugyoSound = useCallback(() => {
+    if (isMuted || !mokugyoSoundRef.current) return;
+    mokugyoSoundRef.current.currentTime = 0;
+    mokugyoSoundRef.current.play().catch(() => {});
   }, [isMuted]);
 
   return (
@@ -108,7 +130,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playWindSound: () => {},
         playFurinSound,
         playPaperSound,
-        playClickSound,
+        playHyoshigiSound,
+        playBrushPencilSound,
+        playMokugyoSound,
       }}
     >
       {children}

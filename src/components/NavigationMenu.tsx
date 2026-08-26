@@ -3,6 +3,7 @@ import { ActiveSessionType } from "@/interfaces/navigation.interface";
 import { MENU_OPTIONS } from "@/lib/constants";
 
 import { useMenuCascadeEffect } from "@/hooks/useMenuCascadeEffect";
+import { usePortfolioAudio } from "@/context/AudioContext";
 
 interface navigationMenuProps {
   onSelectOption: (id: ActiveSessionType) => void;
@@ -12,6 +13,8 @@ export default function NavigationMenu({
   onSelectOption,
 }: navigationMenuProps) {
   const menuRef = useRef<HTMLUListElement>(null);
+
+  const { playHyoshigiSound } = usePortfolioAudio();
 
   useMenuCascadeEffect(menuRef);
 
@@ -35,6 +38,7 @@ export default function NavigationMenu({
                 onSelectOption(option.id);
                 window.dispatchEvent(new Event("change-section"));
               }}
+              onMouseEnter={playHyoshigiSound}
             >
               {option.label}
             </button>

@@ -1,16 +1,22 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { usePortfolioAudio } from "@/context/AudioContext";
 import { useFurin } from "@/hooks/useFurin";
+import { useEffect } from "react";
 
 export default function FurinBell() {
-  const { bellRef } = useFurin({ volume: 0.35 });
+  const { bellRef } = useFurin();
+  const { playFurinSound } = usePortfolioAudio();
 
   const handleAdminClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita activar el inicio del Hero
+    e.stopPropagation();
+
     console.log("Disparando acceso al panel de administración...");
   };
+
+  useEffect(() => {
+    playFurinSound();
+  }, [playFurinSound]);
 
   return (
     <div

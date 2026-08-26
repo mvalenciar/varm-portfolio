@@ -1,19 +1,25 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { usePortfolioAudio } from "@/context/AudioContext";
 
 interface PaperContainerProps {
   title: string;
+
   onBack: () => void;
   children: React.ComponentType;
 }
 
 export default function PaperContainer({
   title,
+
   onBack,
   children: Component,
 }: PaperContainerProps) {
   // Referencia para el contenedor del papel
+
   const paperRef = useRef<HTMLDivElement>(null);
+
+  const { playPaperSound } = usePortfolioAudio();
 
   useEffect(() => {
     if (paperRef.current) {
@@ -33,7 +39,9 @@ export default function PaperContainer({
         },
       );
     }
-  }, []);
+
+    playPaperSound();
+  }, [playPaperSound]);
 
   const executeExitAndReturn = () => {
     if (paperRef.current) {

@@ -1,10 +1,10 @@
 "use client";
 
-import { useSoundEffects } from "@/hooks/useSoundEffects";
+import { usePortfolioAudio } from "@/context/AudioContext";
 import React from "react";
 
 export default function AudioController() {
-  const { isMuted, toggleMute } = useSoundEffects();
+  const { isMuted, toggleMute } = usePortfolioAudio();
 
   return (
     <button

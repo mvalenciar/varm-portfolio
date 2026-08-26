@@ -26,9 +26,10 @@ export default function NavigationMenu({
           <li key={option.id} className="flex justify-center">
             <button
               className="relative cursor-pointer transition-all duration-300 ease-out tracking-[0.15em] uppercase
-                         text-stone-900/80 hover:text-stone-950 font-medium
-                         hover:drop-shadow-[0_0_10px_rgba(255,255,255,1)]
-                         hover:scale-105 origin-center opacity-0"
+             text-stone-700 hover:text-stone-950 font-medium px-4 py-1.5 rounded-sm
+             hover:bg-white/40 hover:backdrop-blur-sm
+             hover:shadow-[0_0_20px_rgba(255,255,255,0.9),0_0_40px_rgba(255,255,255,0.4)]
+             hover:scale-105 origin-center opacity-0"
               onClick={(e) => {
                 e.stopPropagation();
                 onSelectOption(option.id);

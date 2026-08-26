@@ -5,6 +5,7 @@ import NavigationMenu from "./NavigationMenu";
 import PaperContainer from "./PaperContainer";
 import { CONFIG_SESIONES } from "@/lib/constants";
 import { ActiveSessionType } from "@/interfaces/navigation.interface";
+import MainTitle from "./MainTitle";
 
 export default function WelcomeHero() {
   const [isStarted, setIsStarted] = useState(false);
@@ -36,19 +37,7 @@ export default function WelcomeHero() {
       {/* 🏛️ EL ANCLA CENTRAL AUTOMÁTICA */}
       <div className="flex flex-col items-center w-full max-w-md h-110 relative justify-start z-10">
         {/* TÍTULO PRINCIPAL */}
-        <div
-          className={`text-center transition-all duration-750 ease-out h-28 flex items-center justify-center ${
-            activeSession
-              ? "opacity-0 scale-75 pointer-events-none -translate-y-10"
-              : isStarted
-                ? "transform -translate-y-8 opacity-100"
-                : "transform translate-y-6 opacity-100"
-          }`}
-        >
-          <h1 className="font-pincel text-7xl md:text-9xl tracking-wider text-stone-950 uppercase drop-shadow-sm">
-            VARM
-          </h1>
-        </div>
+        <MainTitle isStarted={isStarted} activeSession={activeSession} />
 
         {/* 🔄 ZONA DE INTERCAMBIO DINÁMICO */}
         <div className="relative w-full flex flex-col items-center mt-4 h-72">

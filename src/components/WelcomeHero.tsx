@@ -6,6 +6,7 @@ import PaperContainer from "./PaperContainer";
 import { CONFIG_SESIONES } from "@/lib/constants";
 import { ActiveSessionType } from "@/interfaces/navigation.interface";
 import MainTitle from "./MainTitle";
+import WelcomePrompt from "./WelcomePrompt";
 
 export default function WelcomeHero() {
   const [isStarted, setIsStarted] = useState(false);
@@ -48,23 +49,7 @@ export default function WelcomeHero() {
         {/* 🔄 ZONA DE INTERCAMBIO DINÁMICO */}
         <div className="relative w-full flex flex-col items-center mt-4 h-72">
           {/* A. BIENVENIDA INICIAL (Si no ha iniciado) */}
-          <div
-            className={`flex flex-col gap-2 text-center transition-all duration-500 ease-out absolute top-0 ${
-              isStarted
-                ? "opacity-0 pointer-events-none transform translate-y-4"
-                : "opacity-100"
-            }`}
-          >
-            <h3 className="font-serif text-lg md:text-xl tracking-wide text-stone-900 italic">
-              Desarrollador Web Full Stack
-            </h3>
-            <p className="text-[10px] tracking-[0.25em] text-stone-800 uppercase font-sans font-medium">
-              Artesano de Software & Ciberseguridad Defensiva
-            </p>
-            <p className="animate-pulse font-serif text-sm tracking-[0.2em] text-stone-700 bg-stone-100/40 px-4 py-2 rounded-md backdrop-blur-[1px] mt-10">
-              — Click Enter o Haga Clic —
-            </p>
-          </div>
+          <WelcomePrompt isStarted={isStarted} />
 
           {/* B. EL MENÚ PRINCIPAL: Se muestra si inició pero NO hay sección activa */}
           {isStarted && !activeSession && (

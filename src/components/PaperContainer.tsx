@@ -63,7 +63,7 @@ export default function PaperContainer({
     <div
       ref={paperRef}
       onClick={(e) => e.stopPropagation()}
-      className="relative w-full max-w-lg mx-auto p-6 md:p-8 
+      className="relative w-full max-w-lg mx-auto p-6 md:p-8
                  bg-[#faf8f5] 
                  border border-[#d7c9be]/60
                  rounded-[255px_15px_225px_15px/15px_225px_15px_255px]

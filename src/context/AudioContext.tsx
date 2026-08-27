@@ -9,6 +9,8 @@ import React, {
   useState,
 } from "react";
 
+import gsap from "gsap";
+
 interface AudioContextType {
   isMuted: boolean;
   toggleMute: () => void;
@@ -18,6 +20,7 @@ interface AudioContextType {
   playHyoshigiSound: () => void;
   playBrushPencilSound: () => void;
   playMokugyoSound: () => void;
+  initPortfolioSound: () => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
@@ -32,6 +35,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const hyoshigiRef = useRef<HTMLAudioElement | null>(null);
   const brushPencilSoundRef = useRef<HTMLAudioElement | null>(null);
   const mokugyoSoundRef = useRef<HTMLAudioElement | null>(null);
+  const furinWindIntroRef = useRef<HTMLAudioElement | null>(null);
 
   // Carga de archivos de audio
   useEffect(() => {
@@ -41,7 +45,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     hyoshigiRef.current = new Audio("/sounds/hyoshigi.mp3");
     brushPencilSoundRef.current = new Audio("/sounds/brushPencil.mp3");
     mokugyoSoundRef.current = new Audio("/sounds/mokugyo.flac");
+    furinWindIntroRef.current = new Audio("/sounds/furin-wind-chime.mp3");
 
+    furinWindIntroRef.current.volume = 0.5;
     windRef.current.loop = true;
     windRef.current.volume = 0.25;
     furinRef.current.volume = 0.4;
@@ -51,6 +57,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     mokugyoSoundRef.current.volume = 0.3;
 
     return () => {
+      furinWindIntroRef.current?.pause();
       windRef.current?.pause();
       paperRef.current?.pause();
       furinRef.current?.pause();
@@ -92,6 +99,24 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [isMuted]);
 
   // Funciones lógicas de reproducción de sonido
+
+  const initPortfolioSound = useCallback(() => {
+    if (!furinWindIntroRef.current || !windRef.current) return;
+
+    setIsMuted(false);
+
+    furinWindIntroRef.current.currentTime = 0;
+    furinWindIntroRef.current.play().catch(() => {});
+
+    windRef.current.volume = 0;
+
+    setTimeout(() => {
+      if (windRef.current) {
+        gsap.to(windRef.current, { volume: 0.25, duration: 2.0 });
+      }
+    }, 3500);
+  }, []);
+
   const playPaperSound = useCallback(() => {
     if (isMuted || !paperRef.current) return;
     paperRef.current.currentTime = 0;
@@ -122,6 +147,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     mokugyoSoundRef.current.play().catch(() => {});
   }, [isMuted]);
 
+  useEffect(() => {
+    window.addEventListener("initPortfolioSound", initPortfolioSound);
+    return () => {
+      window.removeEventListener("initPortfolioSound", initPortfolioSound);
+    };
+  }, [initPortfolioSound]);
+
   return (
     <AudioContext.Provider
       value={{
@@ -133,6 +165,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playHyoshigiSound,
         playBrushPencilSound,
         playMokugyoSound,
+        initPortfolioSound,
       }}
     >
       {children}

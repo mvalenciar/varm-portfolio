@@ -14,6 +14,8 @@ export default function WelcomeHero() {
   const handleStart = useCallback(() => {
     if (!isStarted) {
       setIsStarted(true);
+
+      window.dispatchEvent(new Event("initPortfolioSound"));
     }
   }, [isStarted]);
 

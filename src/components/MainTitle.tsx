@@ -1,4 +1,3 @@
-import { usePortfolioAudio } from "@/context/AudioContext";
 import gsap from "gsap";
 import React, { useEffect } from "react";
 
@@ -13,7 +12,7 @@ export default function MainTitle({
   activeSession,
   isStarted,
 }: MainTitleProps) {
-  const { playBrushPencilSound } = usePortfolioAudio();
+  //const { playBrushPencilSound } = usePortfolioAudio();
 
   useEffect(() => {
     // Uso de gsapContext para proteger la animación del doble montaje del componente
@@ -27,10 +26,8 @@ export default function MainTitle({
       });
     });
 
-    playBrushPencilSound();
-
     return () => ctx.revert();
-  }, [playBrushPencilSound]);
+  }, []);
 
   return (
     <div

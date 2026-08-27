@@ -49,7 +49,7 @@ export default function WelcomeHero() {
         {/* 🔄 ZONA DE INTERCAMBIO DINÁMICO */}
         <div className="relative w-full flex flex-col items-center mt-4 h-72">
           {/* A. BIENVENIDA INICIAL (Si no ha iniciado) */}
-          <WelcomePrompt isStarted={isStarted} />
+          {!isStarted && <WelcomePrompt isStarted={isStarted} />}
 
           {/* B. EL MENÚ PRINCIPAL: Se muestra si inició pero NO hay sección activa */}
           {isStarted && !activeSession && (

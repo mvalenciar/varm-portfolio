@@ -74,3 +74,12 @@ model Profile {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+// 📊 5. TABLA DE ANALÍTICAS / VISITAS (アクセス解析)
+model Analytics {
+  id        String   @id @default(uuid())
+  ipHash    String?  // Hash anónimo de la IP para auditoría de ciberseguridad
+  device    String?  // Tipo de dispositivo (Mobile/Desktop)
+  createdAt DateTime @default(now()) // Fecha y hora exacta de la visita
+}
+

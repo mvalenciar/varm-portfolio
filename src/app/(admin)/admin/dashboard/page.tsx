@@ -1,25 +1,65 @@
 "use client";
 
-import React, { useState } from "react";
 import { LogOut } from "lucide-react";
+import { useState } from "react";
+
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 // 🏢 IMPORTACIÓN DE COMPONENTES DE ANALÍTICAS MODULARES
 import DashboardMetrics from "@/components/admin/DashboardMetrics";
 import TrafficChart from "@/components/admin/TrafficChart";
 
 // 🛠️ IMPORTACIÓN DE FORMULARIOS CRUD INDEPENDIENTES
-import ProjectForm from "@/components/admin/forms/ProjectForm";
-import SkillForm from "@/components/admin/forms/SkillForm";
 import ExperienceForm from "@/components/admin/forms/ExperienceForm";
 import ProfileForm from "@/components/admin/forms/ProfileForm";
+import ProjectForm from "@/components/admin/forms/ProjectForm";
+import SkillForm from "@/components/admin/forms/SkillForm";
+import LoginForm from "@/components/admin/LoginForm";
 
 type MainTabType = "metrics" | "forms";
 type SubFormType = "projects" | "skills" | "experience" | "profile";
 
 export default function AdminDashboard() {
+  const {
+    session,
+    loading,
+    isSubmitting,
+    isLoggingOut,
+    email,
+    password,
+    authError,
+    setField,
+    handleLogin,
+    handleLogout,
+  } = useAdminAuth();
+
   const [activeTab, setActiveTab] = useState<MainTabType>("metrics");
   const [subForm, setSubForm] = useState<SubFormType>("projects");
 
+  // Barrera de carga para evitar parpadeos
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-stone-300 border-t-red-650" />
+      </div>
+    );
+  }
+
+  // Si no hay inicio de sesión, se muestra el formulario de inicio de sesión
+  if (!session) {
+    return (
+      <LoginForm
+        email={email}
+        password={password}
+        authError={authError}
+        isSubmitting={isSubmitting}
+        setField={setField}
+        handleLogin={handleLogin}
+      />
+    );
+  }
+
+  // Si hay sesión
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white">
       {/* 🇯🇵 HEADER / BARRA SUPERIOR (MINIMALIST HINOMARU STYLE) */}
@@ -31,8 +71,16 @@ export default function AdminDashboard() {
               VARM // CONTROL PANEL
             </h1>
           </div>
-          <button className="flex items-center gap-2 border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold tracking-wider uppercase text-stone-700 transition-all hover:bg-stone-950 hover:text-white">
-            <LogOut className="h-3.5 w-3.5" />
+          <button
+            className="flex items-center gap-2 border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold tracking-wider uppercase text-stone-700 transition-all hover:bg-stone-950 hover:text-white"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+          >
+            {isLoggingOut ? (
+              <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-stone-700 border-t-transparent" />
+            ) : (
+              <LogOut className="h-3.5 w-3.5" />
+            )}
             Salir
           </button>
         </div>

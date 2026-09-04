@@ -83,3 +83,14 @@ model Analytics {
   createdAt DateTime @default(now()) // Fecha y hora exacta de la visita
 }
 
+// 🎓 6. TABLA FORMACIÓN ACADÉMICA INDEPENDIENTE (学歴)
+model Education {
+  id           String    @id @default(uuid())
+  institution  String    // Ej: UNAD, SENA, etc.
+  degree       String    // Ej: Ingeniería de Sistemas, Especialización
+  periodType   String    // Ej: "Pregrado Profesional", "Postgrado"
+  description  String    @db.Text
+  gradYear     Int       // 👈 Año en número puro (Ej: 2026) para ordenar matemáticamente de forma nativa
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}

@@ -15,9 +15,15 @@ import ProfileForm from "@/components/admin/forms/ProfileForm";
 import ProjectForm from "@/components/admin/forms/ProjectForm";
 import SkillForm from "@/components/admin/forms/SkillForm";
 import LoginForm from "@/components/admin/LoginForm";
+import EducationForm from "@/components/admin/forms/EducationForm";
 
 type MainTabType = "metrics" | "forms";
-type SubFormType = "projects" | "skills" | "experience" | "profile";
+type SubFormType =
+  | "projects"
+  | "skills"
+  | "experience"
+  | "profile"
+  | "education";
 
 export default function AdminDashboard() {
   const {
@@ -125,7 +131,13 @@ export default function AdminDashboard() {
             {/* SUB-NAVEGACIÓN INTERNA DE FORMULARIOS INDEPENDIENTES */}
             <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-4">
               {(
-                ["projects", "skills", "experience", "profile"] as SubFormType[]
+                [
+                  "projects",
+                  "skills",
+                  "experience",
+                  "profile",
+                  "education",
+                ] as SubFormType[]
               ).map((tab) => (
                 <button
                   key={tab}
@@ -140,6 +152,7 @@ export default function AdminDashboard() {
                   {tab === "skills" && "🛠️ Habilidades"}
                   {tab === "experience" && "🏢 Trayectoria"}
                   {tab === "profile" && "👤 Perfil y Contacto"}
+                  {tab === "education" && "🎓 Formación Académica"}
                 </button>
               ))}
             </div>
@@ -150,6 +163,7 @@ export default function AdminDashboard() {
               {subForm === "skills" && <SkillForm />}
               {subForm === "experience" && <ExperienceForm />}
               {subForm === "profile" && <ProfileForm />}
+              {subForm === "education" && <EducationForm />}
             </div>
           </div>
         )}

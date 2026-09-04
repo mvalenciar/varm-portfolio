@@ -1,3 +1,5 @@
+"use client";
+
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { useState } from "react";
 
@@ -9,8 +11,8 @@ interface SkillFormData {
 
 export default function useSkillForm() {
   const [formData, setFormData] = useState<SkillFormData>({
-    name: "string",
-    category: "string",
+    name: "",
+    category: "Frontend",
     level: 3,
   });
 

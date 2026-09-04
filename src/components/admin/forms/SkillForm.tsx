@@ -59,7 +59,7 @@ export default function SkillForm() {
         >
           <option value="Frontend">Frontend / Interfaz</option>
           <option value="Backend">Backend / Infraestructura</option>
-          <option value="Cybersecurity">Cybersecurity / Defensa</option>
+          <option value="QA">QA / Calidad</option>
         </select>
       </div>
       <div>
@@ -74,7 +74,6 @@ export default function SkillForm() {
           disabled={isPending}
           value={level}
           onChange={handleChange}
-          defaultValue={3}
           className="mt-1 w-full border border-stone-300 px-3 py-2 text-xs focus:border-red-600 focus:outline-none"
         />
       </div>

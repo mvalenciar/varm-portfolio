@@ -5,7 +5,6 @@ import { usePortfolioAudio } from "@/context/AudioContext";
 import { useVisitorProjects } from "@/hooks/useVisitorProjects";
 import { usePagination } from "@/hooks/usePagination";
 import PaginationController from "../PaginationController";
-// 🔗 IMPORTAMOS LOS ICONOS MINIMALISTAS PARA TUS ENLACES DE PRODUCCIÓN
 import { GitBranch, ExternalLink } from "lucide-react";
 
 export default function ProjectsSection() {

@@ -1,75 +1,95 @@
+"use client";
+
+import { useState } from "react";
 import { usePortfolioAudio } from "@/context/AudioContext";
-import React, { useState } from "react";
+import { useVisitorProjects } from "@/hooks/useVisitorProjects";
+import { usePagination } from "@/hooks/usePagination";
+import PaginationController from "../PaginationController";
+// 🔗 IMPORTAMOS LOS ICONOS MINIMALISTAS PARA TUS ENLACES DE PRODUCCIÓN
+import { GitBranch, ExternalLink } from "lucide-react";
 
 export default function ProjectsSection() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const allProjects = [
-    {
-      id: 1,
-      titulo: "🦸 Heroes App (Frontend)",
-      descripcion:
-        "Aplicación interactiva para explorar personajes, estadísticas y guardar favoritos. Diseñada bajo Feature-Driven Architecture y principios SOLID.",
-      stack: ["React", "TypeScript", "Vite", "Shadcn/UI", "Vitest", "RTL"],
-    },
-    {
-      id: 2,
-      titulo: "🛡️ Auth & Mailer System (Full-Stack)",
-      descripcion:
-        "Arquitectura desacoplada con backend seguro en Render. Incluye hashing de contraseñas, validación estricta de esquemas y envío de correos.",
-      stack: [
-        "Node.js",
-        "Express",
-        "Prisma",
-        "Supertest",
-        "Bcrypt",
-        "Nodemailer",
-      ],
-    },
-    {
-      id: 3,
-      titulo: "🌸 Zen CMS Portfolio (Next.js)",
-      descripcion:
-        "Este portafolio. Una experiencia inmersiva con renderizado híbrido (SSR/Client) y optimización nativa de recursos.",
-      stack: ["Next.js 16.3", "React 19", "Tailwind v4", "GSAP", "TypeScript"],
-    },
-  ];
+  const { projects, isLoading, error } = useVisitorProjects();
 
-  const projectsPerPage = 2;
-  const totalPages = Math.max(
-    1,
-    Math.ceil(allProjects.length / projectsPerPage),
-  );
-  const startIndex = (currentPage - 1) * projectsPerPage;
-  const endIndex = projectsPerPage * currentPage;
-  const visibleProjects = allProjects.slice(startIndex, endIndex);
+  const { totalPages, visibleProjects } = usePagination(projects, currentPage);
 
   const { playHyoshigiSound, playMokugyoSound } = usePortfolioAudio();
 
+  if (isLoading) {
+    return (
+      <div className="flex h-48 items-center justify-center font-sans">
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-stone-300 border-t-[#8a1c14]" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 border border-dashed border-red-200 bg-red-50 text-center font-sans">
+        <p className="text-[11px] font-bold tracking-wider text-red-600 uppercase">
+          Mantenimiento de red: No se pudieron sincronizar los proyectos.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col justify-between font-sans space-y-4 h-64 overflow-y-auto pr-1">
+    <div className="flex flex-col justify-between font-sans space-y-4 h-64 overflow-y-auto pr-1 selection:bg-red-500 selection:text-white">
       {/* 📦 LISTA DE PROYECTOS VISIBLES */}
       <div className="h-full">
         {visibleProjects.map((project) => (
           <div
-            key={project.id}
-            className="border-b border-stone-300/60 pb-4 last:border-0 last:pb-0 animate-[fadeIn_0.4s_ease-out_both]"
+            key={project.title}
+            className="border-b border-stone-300/60 pb-4 last:border-0 last:pb-0 animate-[fadeIn_0.4s_ease-out_both] flex flex-col justify-between"
           >
-            <h4 className="font-serif text-base font-bold text-stone-900 tracking-wide">
-              {project.titulo}
-            </h4>
-            <p className="text-stone-700 text-xs md:text-sm mt-1 leading-relaxed">
-              {project.descripcion}
-            </p>
+            <div>
+              <h4 className="font-serif text-base font-bold text-stone-900 tracking-wide">
+                {project.title}
+              </h4>
+              <p className="text-stone-700 text-xs md:text-sm mt-1 leading-relaxed">
+                {project.description}
+              </p>
 
-            {/* Etiquetas de tecnologías */}
-            <div className="flex flex-wrap gap-1.5 mt-2.5">
-              {project.stack.map((tech, idx) => (
+              {/* 🕹️ ENLACES OPERACIONALES (GITHUB Y LIVE URL CONDICIONALES) */}
+              <div className="flex gap-4 mt-3">
+                {project.gitHubUrl && (
+                  <a
+                    href={project.gitHubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={playHyoshigiSound}
+                    onClick={playMokugyoSound}
+                    className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-stone-500 hover:text-stone-950 uppercase transition-all hover:scale-105 cursor-pointer"
+                  >
+                    <GitBranch className="h-3.5 w-3.5" /> Código Fuente
+                  </a>
+                )}
+
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={playHyoshigiSound}
+                    onClick={playMokugyoSound}
+                    className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-[#8a1c14] hover:text-red-700 uppercase transition-all hover:scale-105 cursor-pointer"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" /> Despliegue En Vivo
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Etiquetas de tecnologías (Stack) */}
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {project.skills.map((skill) => (
                 <span
-                  key={idx}
+                  key={skill.name}
                   className="text-[10px] font-mono font-medium px-2 py-0.5 bg-stone-200/60 border border-stone-300/40 rounded-sm text-stone-600"
                 >
-                  {tech}
+                  {skill.name}
                 </span>
               ))}
             </div>
@@ -77,36 +97,14 @@ export default function ProjectsSection() {
         ))}
       </div>
 
-      {/* 🕹️ CONTROLADOR DE PAGINACIÓN ESTILO RPG */}
-      <div className="flex justify-between items-center border-t border-dashed border-stone-300/60 pt-4 mt-6">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => {
-            setCurrentPage((prev) => prev - 1);
-            playMokugyoSound();
-          }}
-          className="font-yuzarsif text-sm tracking-widest text-stone-500 hover:text-stone-950 disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-all hover:scale-105"
-          onMouseEnter={playHyoshigiSound}
-        >
-          ◀ ANTERIOR
-        </button>
-
-        <span className="font-serif text-xs text-stone-500 tracking-widest">
-          {currentPage} / {totalPages}
-        </span>
-
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => {
-            setCurrentPage((prev) => prev + 1);
-            playMokugyoSound();
-          }}
-          className="font-yuzarsif text-sm tracking-widest text-stone-500 hover:text-stone-950 disabled:opacity-30 disabled:pointer-events-none cursor-pointer transition-all hover:scale-105"
-          onMouseEnter={playHyoshigiSound}
-        >
-          SIGUIENTE ▶
-        </button>
-      </div>
+      {/* CONTROLADOR DE PAGINACIÓN */}
+      <PaginationController
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+        playMokugyoSound={playMokugyoSound}
+        playHyoshigiSound={playHyoshigiSound}
+      />
     </div>
   );
 }

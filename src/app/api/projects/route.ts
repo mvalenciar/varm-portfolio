@@ -67,6 +67,13 @@ export async function GET() {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        skills: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     return NextResponse.json(projects, { status: 200 });

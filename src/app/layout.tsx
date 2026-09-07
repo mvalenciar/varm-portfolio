@@ -1,7 +1,12 @@
+"use client"; // 🚨 OBLIGATORIO: Volvemos el layout un Client Component para poder leer la ruta del navegador
+
 import React from "react";
 import "./globals.css";
 import localFont from "next/font/local";
 import Image from "next/image";
+// 🚀 IMPORTAMOS EL LECTOR DE RUTAS NATIVO DE NEXT.JS
+import { usePathname } from "next/navigation";
+
 import CustomCursor from "@/components/CustomCursor";
 import FurinBell from "@/components/FurinBell";
 import SakuraCanvas from "@/components/SakuraCanvas";
@@ -23,33 +28,49 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  // Capturamos la URL exacta del navegador (Ej: "/" o "/admin/dashboard")
+  const pathname = usePathname();
+
+  // 🛡️ FILTRO DE CONTROL: Si la ruta empieza con "/admin", esta bandera valdrá true
+  const isAdminRoute = pathname?.startsWith("/admin");
+
   return (
     <html
       lang="es"
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
-      <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800">
+      <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800 bg-stone-50">
         <AudioProvider>
-          {/* Simulación física de fondo */}
-          <SakuraCanvas />
+          {/* 🌸 ELEMENTOS MÍSTICOS: Solo se renderizan si NO estás en el panel de administración */}
+          {!isAdminRoute && (
+            <>
+              {/* Simulación física de fondo */}
+              <SakuraCanvas />
+              {/* Campana de viento secreta interactiva */}
+              <FurinBell />
+            </>
+          )}
 
-          {/* Controladores de interacción personalizados */}
+          {/* Controladores de interacción globales */}
           <CustomCursor />
-          <FurinBell />
           <AudioController />
 
-          {/* Background fijo */}
-          <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">
-            <Image
-              src="/images/sakura-bg.jpg"
-              alt="Fondo tradicional japonés con Monte Fuji"
-              fill
-              priority
-              className="object-cover object-center opacity-85"
-            />
-            <div className="absolute inset-0 bg-stone-100/10 backdrop-blur-[0.5px]" />
-          </div>
+          {/* 🖼️ BACKGROUND TRADICIONAL DINÁMICO */}
+          {/* Si estás en la administración, ocultamos el Monte Fuji para dar paso a un lienzo limpio */}
+          {!isAdminRoute && (
+            <div className="fixed inset-0 -z-20 w-full h-full pointer-events-none select-none">
+              <Image
+                src="/images/sakura-bg.jpg"
+                alt="Fondo tradicional japonés con Monte Fuji"
+                fill
+                priority
+                className="object-cover object-center opacity-85"
+              />
+              <div className="absolute inset-0 bg-stone-100/10 backdrop-blur-[0.5px]" />
+            </div>
+          )}
 
+          {/* Inyección del árbol de componentes hijos */}
           <div className="relative z-10 h-full w-full">{children}</div>
         </AudioProvider>
       </body>

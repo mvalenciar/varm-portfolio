@@ -3,15 +3,25 @@
 import { usePortfolioAudio } from "@/context/AudioContext";
 import { useFurin } from "@/hooks/useFurin";
 import { useEffect } from "react";
+// 🚨 REGLA DE ORO DE NEXT.JS: Enrutador oficial del App Router
+import { useRouter } from "next/navigation";
 
 export default function FurinBell() {
   const { bellRef } = useFurin();
-  const { playFurinSound } = usePortfolioAudio();
+  const { playFurinSound, playMokugyoSound, playHyoshigiSound } =
+    usePortfolioAudio();
+  const router = useRouter();
 
-  const handleAdminClick = (e: React.MouseEvent) => {
+  // Función controladora exclusiva para la cinta interactiva
+  const navigateToAdmin = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
 
-    console.log("Disparando acceso al panel de administración...");
+    playMokugyoSound();
+
+    if (router) {
+      router.push("/admin/dashboard");
+    }
   };
 
   useEffect(() => {
@@ -21,10 +31,8 @@ export default function FurinBell() {
   return (
     <div
       ref={bellRef}
-      onClick={handleAdminClick}
-      className="fixed top-2 md:top-0 right-4 md:right-16 flex flex-col items-center origin-top select-none scale-75 md:scale-100 transition-transform duration-300 group cursor-none"
+      className="fixed top-2 md:top-0 right-4 md:right-16 flex flex-col items-center origin-top select-none scale-75 md:scale-100 transition-transform duration-300 group z-9999"
     >
-      {/* Todo el interior (Hilo, cristal, Tanzaku) se queda EXACTAMENTE IGUAL */}
       {/* 🧵 1. EL HILO (String) */}
       <div className="w-px h-12 md:h-16 bg-stone-500/60" />
 
@@ -36,15 +44,19 @@ export default function FurinBell() {
       {/* 🧵 3. EL HILO INTERMEDIO */}
       <div className="w-px h-4 bg-stone-550/65" />
 
-      {/* 📜 4. LA CINTA DE PAPEL TRADICIONAL (Tanzaku) */}
-      <div className="w-6 h-28 bg-[#faf8f5] border border-[#d7c9be]/80 shadow-[1px_2px_5px_rgba(0,0,0,0.04)] rounded-sm flex flex-col items-center justify-start pt-3 px-1 transition-all duration-300 group-hover:bg-red-50/60 group-hover:border-red-750/40 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+      {/* 📜 4. LA CINTA DE PAPEL TRADICIONAL INTERACTIVA (Tanzaku) */}
+      <button
+        onClick={navigateToAdmin}
+        onMouseEnter={playHyoshigiSound}
+        className="w-6 h-28 bg-[#faf8f5] border border-[#d7c9be]/80 shadow-[1px_2px_5px_rgba(0,0,0,0.04)] rounded-sm flex flex-col items-center justify-start pt-3 px-1 transition-all duration-300 group-hover:bg-red-50/60 group-hover:border-red-750/40 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.8)] cursor-pointer relative z-10000 focus:outline-none pointer-events-auto"
+      >
         <p
-          className="font-yuzarsif text-[9px] tracking-[0.2em] text-stone-800 uppercase font-medium group-hover:text-[#8a1c14] transition-colors duration-350 select-none text-center"
+          className="font-yuzarsif text-[9px] tracking-[0.2em] text-stone-800 uppercase font-medium group-hover:text-[#8a1c14] transition-colors duration-350 select-none text-center pointer-events-none"
           style={{ writingMode: "vertical-rl" }}
         >
           Admin // 管理
         </p>
-      </div>
+      </button>
     </div>
   );
 }

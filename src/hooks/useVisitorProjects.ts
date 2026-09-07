@@ -1,4 +1,3 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { useEffect, useState } from "react";
 
 interface Project {
@@ -19,7 +18,7 @@ export const useVisitorProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("api/projects");
+        const response = await fetch("/api/projects");
 
         if (!response) {
           throw new Error("No se pudieron leer los proyectos");
@@ -30,7 +29,7 @@ export const useVisitorProjects = () => {
         setProjects(data);
       } catch (error) {
         console.error("Error interno en el hook", error);
-        if (error instanceof PrismaClientKnownRequestError) {
+        if (error instanceof Error) {
           setError(
             error.message || "Error en la red al consultar los proyectos",
           );

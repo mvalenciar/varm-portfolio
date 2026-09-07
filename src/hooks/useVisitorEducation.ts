@@ -1,4 +1,3 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { useEffect, useState } from "react";
 
 interface Education {
@@ -19,9 +18,9 @@ export function useVisitorEducation() {
   useEffect(() => {
     const fetchEducation = async () => {
       try {
-        const response = await fetch("api/education");
+        const response = await fetch("/api/education");
 
-        if (!response) {
+        if (!response.ok) {
           throw new Error(
             "Error en la sincronización de la historia académica",
           );
@@ -31,7 +30,7 @@ export function useVisitorEducation() {
         setEducationHistory(data);
       } catch (error) {
         console.error("Error interno en el hook useVisitorEducation");
-        if (error instanceof PrismaClientKnownRequestError) {
+        if (error instanceof Error) {
           setError(
             error.message || "Error de red al consultar el historial académico",
           );

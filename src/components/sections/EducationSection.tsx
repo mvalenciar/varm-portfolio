@@ -43,7 +43,7 @@ export default function EducationSection() {
               style={{ animationDelay: `${index * 100}ms` }} // Mantiene tu hermoso efecto cascada
             >
               {/* 🔴 Nodo indicador de la línea de tiempo */}
-              <span className="absolute -left-[21px] top-1.5 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-[#8a1c14] ring-4 ring-[#faf8f5]" />
+              <span className="absolute -left-5.25 top-1.5 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-[#8a1c14] ring-4 ring-[#faf8f5]" />
 
               {/* Contenido del hito dinámico */}
               <div className="flex flex-col gap-0.5">

@@ -1,7 +1,6 @@
 "use client";
 
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface Skill {
   id: string;
@@ -38,7 +37,7 @@ export default function useVisitorSkills() {
         setQaSkills(data.filter((s) => s.category === "QA").map((s) => s.name));
       } catch (err) {
         console.error("Error en useVisitorSkills:", err);
-        if (err instanceof PrismaClientKnownRequestError) {
+        if (err instanceof Error) {
           setError(err.message || "Error al conectar con la base de datos.");
         }
       } finally {

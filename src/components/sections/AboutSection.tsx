@@ -39,7 +39,7 @@ export default function AboutSection() {
   }
 
   return (
-    <div className="space-y-3.5 h-64 overflow-y-auto px-2 pr-2 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-stone-250 hover:[&::-webkit-scrollbar-thumb]:bg-[#8a1c14]/40 [&::-webkit-scrollbar-thumb]:rounded-sm">
+    <div className="space-y-3.5 h-64 overflow-y-auto px-2 pr-2 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white">
       {/* Párrafo de introducción */}
       <p className="font-serif font-bold text-stone-950 text-sm md:text-base tracking-wide border-b border-stone-200/60 pb-1.5 mb-2 leading-snug">
         Hola, soy{" "}

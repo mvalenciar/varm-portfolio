@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { usePortfolioAudio } from "@/context/AudioContext";
-import useVisitorSkills from "@/hooks/useVisitorSkills"; // 👈 Tu hook purificado
+import useVisitorSkills from "@/hooks/useVisitorSkills";
 import {
   SkillTabOption,
   SkillTypeCategory,
@@ -13,11 +13,11 @@ export default function SkillsSection() {
   const { frontSkills, backSkills, qaSkills, isLoading, error } =
     useVisitorSkills();
 
-  // 1. Estado para saber qué categoría de habilidades está mirando el usuario
+  // Estado para saber qué categoría de habilidades está mirando el usuario
   const [activeCategory, setActiveCategory] =
     useState<SkillTypeCategory>("front");
 
-  // Tus categorías estructuradas como "Inventario RPG"
+  // Categorías estructuradas como "Inventario RPG"
   const tabs: SkillTabOption[] = [
     { id: "front", label: "Front // 開発" },
     { id: "back", label: "Back // 基盤" },
@@ -33,7 +33,7 @@ export default function SkillsSection() {
   const skillsVisible = skillsBD[activeCategory] || [];
   const { playMokugyoSound } = usePortfolioAudio();
 
-  // Pantalla de carga perimetral respetando tu mística zen
+  // Pantalla de carga
   if (isLoading) {
     return (
       <div className="flex h-48 items-center justify-center font-sans">
@@ -42,7 +42,7 @@ export default function SkillsSection() {
     );
   }
 
-  // Alerta defensiva si falla el internet en Puerto Asís o Supabase entra en mantenimiento
+  // Alerta defensiva si falla el internet o Supabase entra en mantenimiento
   if (error) {
     return (
       <div className="p-4 border border-dashed border-red-200 bg-red-50 text-center font-sans">
@@ -76,12 +76,11 @@ export default function SkillsSection() {
           ))}
         </div>
 
-        {/* 🌸 REJILLA DE HABILIDADES DINÁMICAS (CONECTADAS VIVAS A SUPABASE) */}
+        {/* 🌸 REJILLA DE HABILIDADES DINÁMICAS */}
         <div className="grid grid-cols-2 gap-2 max-h-55 overflow-y-auto pr-1">
           {skillsVisible.map((skill, index) => (
             <div
               key={index}
-              /* Mantiene tu hermoso efecto cascada intacto utilizando tu condicional de index */
               className="flex items-center gap-2 px-3 py-2 bg-[#faf8f5]/40 border border-stone-300 text-stone-800 text-xs font-medium rounded-sm shadow-[1px_1px_2px_rgba(0,0,0,0.01)] animate-[fadeIn_0.3s_ease-out_both]"
               style={{ animationDelay: `${index * 40}ms` }}
             >

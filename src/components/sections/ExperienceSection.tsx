@@ -28,8 +28,7 @@ export default function ExperienceSection() {
   }
 
   return (
-    /* Contenedor h-64 con scroll sutil para mantener el anclaje simétrico de tu WelcomeHero */
-    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white scrollbar-thin">
+    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white">
       {experiences.length === 0 ? (
         <p className="text-xs text-stone-400 font-medium text-center py-8 border border-dashed border-stone-200 bg-stone-50/50">
           No hay crónicas laborales registradas en el lienzo relacional.

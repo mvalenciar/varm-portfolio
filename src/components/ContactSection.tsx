@@ -1,16 +1,18 @@
 "use client";
 
-import React from "react";
 import { usePortfolioAudio } from "@/context/AudioContext";
 import { useVisitorProfile } from "@/hooks/useVisitorProfile";
+import { useState } from "react";
 
 export default function ContactSection() {
+  // Usamos tu estado existente 'copy' para controlar el tooltip flotante
+  const [copy, setCopy] = useState(false);
+
   const { playMokugyoSound, playHyoshigiSound } = usePortfolioAudio();
 
-  // Consumimos las redes y datos de contacto reales desde Supabase
+  // Datos de contacto reales desde Supabase
   const { profile, isLoading, error } = useVisitorProfile();
 
-  // Pantalla de carga sutil que respeta la mística zen del papel
   if (isLoading) {
     return (
       <div className="flex h-48 items-center justify-center font-sans">
@@ -19,24 +21,24 @@ export default function ContactSection() {
     );
   }
 
-  // Alerta defensiva si falla la red local en Puerto Asís o Supabase entra en mantenimiento
+  // Alerta defensiva si falla la red local o Supabase entra en mantenimiento
   if (error || !profile) {
     return (
       <div className="p-4 border border-dashed border-red-200 bg-red-50 text-center font-sans animate-fadeIn">
         <p className="text-[10px] font-bold tracking-wider text-red-650 uppercase">
-          Canales en modo offline: Escríbeme a tu-correo-manual@example.com
+          Canales en modo offline: Escríbeme a
+          miltonalonsovalenciarincon@gmail.com
         </p>
       </div>
     );
   }
 
-  // 📦 CONSTRUCCIÓN DINÁMICA DE TUS CANALES VIVOS DESDE LA BASE DE DATOS
-  // Filtramos dinámicamente para que solo aparezcan los botones si tú llenaste el campo en el Dashboard
+  // 📦 CONSTRUCCIÓN DINÁMICA DE CANALES
   const canalesVivos = [
     {
       network: "Correo Electrónico",
       data: profile.email,
-      action: `mailto:${profile.email}`,
+      action: "copy", // Marcado estratégico para capturar la lógica de portapapeles
       label: "Email ✉️",
     },
     ...(profile.phone
@@ -81,9 +83,25 @@ export default function ContactSection() {
       : []),
   ];
 
+  // Manejador centralizado que decide si copia o navega externamente
+  const handleAction = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    channel: (typeof canalesVivos)[0],
+  ) => {
+    playMokugyoSound(); // Dispara el sonido en cualquier interacción de clic
+
+    if (channel.action === "copy") {
+      e.preventDefault(); // Evita que el navegador intente recargar o redirigir a "/copy"
+      navigator.clipboard.writeText(channel.data);
+
+      setCopy(true);
+      setTimeout(() => setCopy(false), 2000); // Oculta el pergamino flotante a los 2 segundos
+    }
+  };
+
   return (
-    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans antialiased selection:bg-red-500 selection:text-white animate-fadeIn">
-      {/* Texto introductorio honesto purgado de ciberseguridad */}
+    <div className="space-y-4 h-64 overflow-y-auto pr-1 font-sans antialiased selection:bg-red-500 selection:text-white animate-fadeIn [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-stone-250 [&::-webkit-scrollbar-thumb]:rounded-sm">
+      {/* Texto introductorio */}
       <p className="text-stone-700 text-xs md:text-sm leading-relaxed italic mb-4">
         ¿Tienes un proyecto en mente, buscas un perfil Full-Stack riguroso o
         quieres debatir sobre arquitectura limpia y testing automatizado? Mis
@@ -96,7 +114,7 @@ export default function ContactSection() {
           <div
             key={index}
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-stone-300/60 pb-3 last:border-0 last:pb-0 animate-[fadeIn_0.3s_ease-out_both]"
-            style={{ animationDelay: `${index * 50}ms` }} // Mantiene tu hermoso efecto cascada RPG
+            style={{ animationDelay: `${index * 50}ms` }}
           >
             <div className="flex flex-col">
               <span className="text-[10px] uppercase tracking-wider text-stone-500 font-semibold">
@@ -107,17 +125,28 @@ export default function ContactSection() {
               </span>
             </div>
 
-            {/* Botón de acción con estilo caligráfico compacto */}
-            <a
-              href={channel.action}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-yuzarsif text-xs tracking-widest text-[#8a1c14] hover:text-stone-950 transition-all duration-300 hover:scale-105 mt-2 sm:mt-0 bg-stone-200/40 hover:bg-stone-200/80 border border-stone-300/60 px-3 py-1.5 rounded-sm shadow-sm text-center cursor-pointer"
-              onClick={playMokugyoSound}
-              onMouseEnter={playHyoshigiSound}
-            >
-              {channel.label}
-            </a>
+            {/* Contenedor relativo para posicionar el Tooltip flotante de forma perfecta */}
+            <div className="relative mt-2 sm:mt-0 flex justify-center sm:justify-end">
+              <a
+                href={channel.action === "copy" ? "#" : channel.action}
+                target={channel.action === "copy" ? undefined : "_blank"}
+                rel={
+                  channel.action === "copy" ? undefined : "noopener noreferrer"
+                }
+                className="font-yuzarsif text-xs tracking-widest text-[#8a1c14] hover:text-stone-950 transition-all duration-300 hover:scale-105 bg-stone-200/40 hover:bg-stone-200/80 border border-stone-300/60 px-3 py-1.5 rounded-sm shadow-sm text-center cursor-pointer w-full sm:w-auto"
+                onClick={(e) => handleAction(e, channel)}
+                onMouseEnter={playHyoshigiSound}
+              >
+                {channel.label}
+              </a>
+
+              {/* 🏮 Alerta tipográfica minimalista tipo pergamino */}
+              {channel.action === "copy" && copy && (
+                <span className="absolute bottom-full mb-1.5 px-2 py-0.5 bg-[#faf8f5] border border-stone-300 rounded-sm text-[9px] font-mono text-stone-600 animate-fadeIn whitespace-nowrap shadow-[1px_2px_4px_rgba(0,0,0,0.03)] z-10">
+                  ✓ Copiado al portapapeles
+                </span>
+              )}
+            </div>
           </div>
         ))}
       </div>

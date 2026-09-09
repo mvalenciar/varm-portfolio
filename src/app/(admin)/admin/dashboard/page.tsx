@@ -1,29 +1,26 @@
 "use client";
 
+import React, { useState } from "react";
 import { LogOut } from "lucide-react";
-import { useState } from "react";
 
 import { useAdminAuth } from "@/hooks/useAdminAuth";
-
-// 🏢 IMPORTACIÓN DE COMPONENTES DE ANALÍTICAS MODULARES
+import LoginForm from "@/components/admin/LoginForm";
 import DashboardMetrics from "@/components/admin/DashboardMetrics";
 import TrafficChart from "@/components/admin/TrafficChart";
 
-// 🛠️ IMPORTACIÓN DE FORMULARIOS CRUD INDEPENDIENTES
-import EducationForm from "@/components/admin/forms/EducationForm";
 import ExperienceForm from "@/components/admin/forms/ExperienceForm";
 import ProfileForm from "@/components/admin/forms/ProfileForm";
 import ProjectForm from "@/components/admin/forms/ProjectForm";
 import SkillForm from "@/components/admin/forms/SkillForm";
-import LoginForm from "@/components/admin/LoginForm";
+import EducationForm from "@/components/admin/forms/EducationForm";
 
 type MainTabType = "metrics" | "forms";
 type SubFormType =
-  | "profile"
   | "projects"
   | "skills"
-  | "education"
-  | "experience";
+  | "experience"
+  | "profile"
+  | "education";
 
 export default function AdminDashboard() {
   const {
@@ -42,7 +39,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<MainTabType>("metrics");
   const [subForm, setSubForm] = useState<SubFormType>("projects");
 
-  // Barrera de carga para evitar parpadeos
   if (loading) {
     return (
       <div className="min-h-screen bg-stone-50 flex items-center justify-center">
@@ -51,7 +47,6 @@ export default function AdminDashboard() {
     );
   }
 
-  // Si no hay inicio de sesión, se muestra el formulario de inicio de sesión
   if (!session) {
     return (
       <LoginForm
@@ -65,11 +60,12 @@ export default function AdminDashboard() {
     );
   }
 
-  // Si hay sesión
+  // 🟢 CASO CONCEDIDO: Ajuste elástico de pantalla senior
   return (
-    <div className="min-h-screen bg-stone-50 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white">
-      {/* 🇯🇵 HEADER / BARRA SUPERIOR (MINIMALIST HINOMARU STYLE) */}
-      <header className="sticky top-0 z-50 border-b border-stone-200 bg-white px-6 py-4 shadow-sm">
+    // Con Con `h-screen` y `overflow-hidden` congelamos el Dashboard al alto exacto del monitor
+    <div className="h-screen max-h-screen overflow-hidden bg-stone-50 font-sans text-stone-900 antialiased flex flex-col selection:bg-red-500 selection:text-white">
+      {/* 1. HEADER FIJO EN LA CIMA */}
+      <header className="flex-none border-b border-stone-200 bg-white px-6 py-4 shadow-sm z-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-3 w-3 rounded-full bg-red-600 animate-pulse" />
@@ -78,9 +74,9 @@ export default function AdminDashboard() {
             </h1>
           </div>
           <button
-            className="flex items-center gap-2 border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold tracking-wider uppercase text-stone-700 transition-all hover:bg-stone-950 hover:text-white"
             onClick={handleLogout}
             disabled={isLoggingOut}
+            className="flex items-center gap-2 border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold tracking-wider uppercase text-stone-700 transition-all hover:bg-stone-950 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {isLoggingOut ? (
               <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-stone-700 border-t-transparent" />
@@ -92,13 +88,14 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* CONTENEDOR PRINCIPAL */}
-      <main className="mx-auto max-w-7xl px-4 py-8 md:px-6">
+      {/* 2. CONTENEDOR PRINCIPAL CON SCROLL INTERNO INDEPENDIENTE */}
+      {/* Con `flex-1` toma el resto del espacio y con `overflow-y-auto` se auto-regula */}
+      <main className="flex-1 overflow-y-auto px-4 py-6 md:px-6 max-w-7xl w-full mx-auto">
         {/* NAVEGACIÓN DE PESTAÑAS PRINCIPALES */}
-        <div className="mb-8 flex gap-4 border-b border-stone-200">
+        <div className="mb-6 flex gap-4 border-b border-stone-200 top-0 bg-stone-50 pt-2 pb-3 z-40">
           <button
             onClick={() => setActiveTab("metrics")}
-            className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all border-b-2 ${
+            className={`pb-1 text-xs font-bold tracking-widest uppercase transition-all border-b-2 cursor-pointer ${
               activeTab === "metrics"
                 ? "border-red-600 text-stone-950"
                 : "border-transparent text-stone-400 hover:text-stone-600"
@@ -108,7 +105,7 @@ export default function AdminDashboard() {
           </button>
           <button
             onClick={() => setActiveTab("forms")}
-            className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all border-b-2 ${
+            className={`pb-1 text-xs font-bold tracking-widest uppercase transition-all border-b-2 cursor-pointer ${
               activeTab === "forms"
                 ? "border-red-600 text-stone-950"
                 : "border-transparent text-stone-400 hover:text-stone-600"
@@ -120,50 +117,48 @@ export default function AdminDashboard() {
 
         {/* CONTENIDO INTERCAMBIABLE SEGÚN PESTAÑA */}
         {activeTab === "metrics" ? (
-          <div className="space-y-8">
-            {/* Llama a las tarjetas de contadores rápidos */}
+          <div className="space-y-6 pb-8">
             <DashboardMetrics />
-            {/* Llama al gráfico responsivo de Recharts */}
             <TrafficChart />
           </div>
         ) : (
-          <div className="space-y-8 animate-fadeIn">
+          <div className="space-y-6 pb-8 animate-fadeIn">
             {/* SUB-NAVEGACIÓN INTERNA DE FORMULARIOS INDEPENDIENTES */}
-            <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-4">
+            <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-3">
               {(
                 [
-                  "profile",
                   "projects",
                   "skills",
-                  "education",
                   "experience",
+                  "education",
+                  "profile",
                 ] as SubFormType[]
               ).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setSubForm(tab)}
-                  className={`border px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase transition-all ${
+                  className={`border px-3 py-1.5 text-[11px] font-bold tracking-wider uppercase transition-all cursor-pointer ${
                     subForm === tab
                       ? "border-red-600 bg-red-600 text-white"
                       : "border-stone-300 bg-white text-stone-700 hover:border-stone-950 hover:bg-stone-50"
                   }`}
                 >
-                  {tab === "profile" && "👤 Perfil y Contacto"}
                   {tab === "projects" && "💻 Proyectos"}
                   {tab === "skills" && "🛠️ Habilidades"}
-                  {tab === "education" && "🎓 Formación Académica"}
                   {tab === "experience" && "🏢 Trayectoria"}
+                  {tab === "education" && "🎓 Educación"}
+                  {tab === "profile" && "👤 Perfil y Contacto"}
                 </button>
               ))}
             </div>
 
-            {/* SECCIÓN DONDE SE INYECTA EL COMPONENTE DE FORMULARIO INDEPENDIENTE */}
-            <div className="border border-stone-200 bg-white p-6 shadow-sm max-w-2xl mx-auto">
-              {subForm === "profile" && <ProfileForm />}
+            {/* SECCIÓN DONDE SE INYECTA EL COMPONENTE DE FORMULARIO */}
+            <div className="border border-stone-200 bg-white p-6 shadow-sm max-w-2xl mx-auto rounded-sm">
               {subForm === "projects" && <ProjectForm />}
               {subForm === "skills" && <SkillForm />}
-              {subForm === "education" && <EducationForm />}
               {subForm === "experience" && <ExperienceForm />}
+              {subForm === "education" && <EducationForm />}
+              {subForm === "profile" && <ProfileForm />}
             </div>
           </div>
         )}

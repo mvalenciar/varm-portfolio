@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePortfolioAudio } from "@/context/AudioContext";
 import { useVisitorProjects } from "@/hooks/useVisitorProjects";
 import { usePagination } from "@/hooks/usePagination";
@@ -10,11 +10,17 @@ import { GitBranch, ExternalLink } from "lucide-react";
 export default function ProjectsSection() {
   const [currentPage, setCurrentPage] = useState(1);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const { projects, isLoading, error } = useVisitorProjects();
-
   const { totalPages, visibleProjects } = usePagination(projects, currentPage);
-
   const { playHyoshigiSound, playMokugyoSound } = usePortfolioAudio();
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [currentPage]);
 
   if (isLoading) {
     return (
@@ -35,9 +41,9 @@ export default function ProjectsSection() {
   }
 
   return (
-    <div className="flex flex-col justify-between font-sans space-y-4 h-64 overflow-y-auto pr-1 selection:bg-red-500 selection:text-white">
+    <div className="flex flex-col justify-between font-sans space-y-4 h-64 pr-1 selection:bg-red-500 selection:text-white">
       {/* 📦 LISTA DE PROYECTOS VISIBLES */}
-      <div className="h-full">
+      <div ref={scrollContainerRef} className="h-full overflow-y-auto">
         {visibleProjects.map((project) => (
           <div
             key={project.title}

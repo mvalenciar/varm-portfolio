@@ -13,11 +13,11 @@ export default function AboutSection() {
     );
   }
 
-  // 🛡️ RESPALDO DEFENSIVO: Texto fijo honesto y limpio si falla la base de datos
+  // 🛡️ RESPALDO DEFENSIVO
   if (error || !profile) {
     return (
-      <div className="space-y-5 h-64 overflow-y-auto pr-1 font-sans text-stone-700 text-sm md:text-base leading-relaxed animate-fadeIn">
-        <p className="font-semibold text-stone-950 text-base">
+      <div className="space-y-4 h-64 overflow-y-auto px-2 pr-2 text-stone-700 text-xs md:text-sm leading-relaxed animate-fadeIn [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-stone-200 [&::-webkit-scrollbar-thumb]:rounded-sm">
+        <p className="font-serif font-bold text-stone-950 text-sm md:text-base border-b border-stone-200/60 pb-1.5 mb-2">
           Hola, soy Milton Alonso Valencia Rincón, un desarrollador Full Stack
           operando desde Puerto Asís, Putumayo.
         </p>
@@ -29,7 +29,7 @@ export default function AboutSection() {
           y la robustez del{" "}
           <span className="text-[#8a1c14] font-semibold">Testing</span>.
         </p>
-        <p>
+        <p className="text-justify">
           Concibo el desarrollo web como un proceso artesanal (Monozukuri),
           buscando que cada línea de código sea mantenible, segura y libre de
           estrés técnico.
@@ -39,15 +39,16 @@ export default function AboutSection() {
   }
 
   return (
-    <div className="h-64 overflow-y-auto pr-1 font-sans text-stone-700 text-sm md:text-base leading-relaxed selection:bg-red-500 selection:text-white animate-fadeIn space-y-4">
-      {/* Párrafo de introducción destacado con una tipografía un poco más grande */}
-      <p className="font-semibold text-stone-950 text-base md:text-lg tracking-wide border-b border-stone-200 pb-2 mb-2">
+    <div className="space-y-3.5 h-64 overflow-y-auto px-2 pr-2 font-sans text-stone-900 antialiased selection:bg-red-500 selection:text-white [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-stone-250 hover:[&::-webkit-scrollbar-thumb]:bg-[#8a1c14]/40 [&::-webkit-scrollbar-thumb]:rounded-sm">
+      {/* Párrafo de introducción */}
+      <p className="font-serif font-bold text-stone-950 text-sm md:text-base tracking-wide border-b border-stone-200/60 pb-1.5 mb-2 leading-snug">
         Hola, soy{" "}
         <span className="text-[#8a1c14] font-black">{profile.name}</span>, un
         profesional {profile.title} operando desde {profile.location}.
       </p>
 
-      <p className="text-stone-700 text-xs md:text-sm leading-relaxed text-justify first-letter:text-xl first-letter:font-bold">
+      {/* Cuerpo del perfil */}
+      <p className="text-stone-700 text-xs md:text-sm leading-relaxed text-justify whitespace-pre-line">
         {profile.aboutMe}
       </p>
     </div>

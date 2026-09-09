@@ -10,7 +10,7 @@ export function usePagination(
   projects: PageableProject[],
   currentPage: number,
 ) {
-  const projectsPerPage = 2;
+  const projectsPerPage = 1;
   const totalPages = Math.max(1, Math.ceil(projects.length / projectsPerPage));
   const startIndex = (currentPage - 1) * projectsPerPage;
   const endIndex = projectsPerPage * currentPage;

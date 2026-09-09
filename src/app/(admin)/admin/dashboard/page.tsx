@@ -10,20 +10,20 @@ import DashboardMetrics from "@/components/admin/DashboardMetrics";
 import TrafficChart from "@/components/admin/TrafficChart";
 
 // 🛠️ IMPORTACIÓN DE FORMULARIOS CRUD INDEPENDIENTES
+import EducationForm from "@/components/admin/forms/EducationForm";
 import ExperienceForm from "@/components/admin/forms/ExperienceForm";
 import ProfileForm from "@/components/admin/forms/ProfileForm";
 import ProjectForm from "@/components/admin/forms/ProjectForm";
 import SkillForm from "@/components/admin/forms/SkillForm";
 import LoginForm from "@/components/admin/LoginForm";
-import EducationForm from "@/components/admin/forms/EducationForm";
 
 type MainTabType = "metrics" | "forms";
 type SubFormType =
+  | "profile"
   | "projects"
   | "skills"
-  | "experience"
-  | "profile"
-  | "education";
+  | "education"
+  | "experience";
 
 export default function AdminDashboard() {
   const {
@@ -132,11 +132,11 @@ export default function AdminDashboard() {
             <div className="flex flex-wrap gap-2 border-b border-stone-200 pb-4">
               {(
                 [
+                  "profile",
                   "projects",
                   "skills",
-                  "experience",
-                  "profile",
                   "education",
+                  "experience",
                 ] as SubFormType[]
               ).map((tab) => (
                 <button
@@ -148,22 +148,22 @@ export default function AdminDashboard() {
                       : "border-stone-300 bg-white text-stone-700 hover:border-stone-950 hover:bg-stone-50"
                   }`}
                 >
+                  {tab === "profile" && "👤 Perfil y Contacto"}
                   {tab === "projects" && "💻 Proyectos"}
                   {tab === "skills" && "🛠️ Habilidades"}
-                  {tab === "experience" && "🏢 Trayectoria"}
-                  {tab === "profile" && "👤 Perfil y Contacto"}
                   {tab === "education" && "🎓 Formación Académica"}
+                  {tab === "experience" && "🏢 Trayectoria"}
                 </button>
               ))}
             </div>
 
             {/* SECCIÓN DONDE SE INYECTA EL COMPONENTE DE FORMULARIO INDEPENDIENTE */}
             <div className="border border-stone-200 bg-white p-6 shadow-sm max-w-2xl mx-auto">
+              {subForm === "profile" && <ProfileForm />}
               {subForm === "projects" && <ProjectForm />}
               {subForm === "skills" && <SkillForm />}
-              {subForm === "experience" && <ExperienceForm />}
-              {subForm === "profile" && <ProfileForm />}
               {subForm === "education" && <EducationForm />}
+              {subForm === "experience" && <ExperienceForm />}
             </div>
           </div>
         )}

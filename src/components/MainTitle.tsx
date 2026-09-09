@@ -12,8 +12,6 @@ export default function MainTitle({
   activeSession,
   isStarted,
 }: MainTitleProps) {
-  //const { playBrushPencilSound } = usePortfolioAudio();
-
   useEffect(() => {
     // Uso de gsapContext para proteger la animación del doble montaje del componente
     const ctx = gsap.context(() => {

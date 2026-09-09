@@ -1,10 +1,10 @@
-"use client"; // 🚨 OBLIGATORIO: Volvemos el layout un Client Component para poder leer la ruta del navegador
+"use client";
 
 import React from "react";
 import "./globals.css";
 import localFont from "next/font/local";
 import Image from "next/image";
-// 🚀 IMPORTAMOS EL LECTOR DE RUTAS NATIVO DE NEXT.JS
+
 import { usePathname } from "next/navigation";
 
 import CustomCursor from "@/components/CustomCursor";
@@ -28,10 +28,8 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  // Capturamos la URL exacta del navegador (Ej: "/" o "/admin/dashboard")
   const pathname = usePathname();
 
-  // 🛡️ FILTRO DE CONTROL: Si la ruta empieza con "/admin", esta bandera valdrá true
   const isAdminRoute = pathname?.startsWith("/admin");
 
   return (

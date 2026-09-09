@@ -3,6 +3,7 @@ export type ActiveSessionType =
   | "projects"
   | "skills"
   | "education"
+  | "experience"
   | "contact"
   | null;
 

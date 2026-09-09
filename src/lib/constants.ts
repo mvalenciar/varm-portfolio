@@ -7,6 +7,7 @@ import ProjectsSection from "@/components/sections/ProjectsSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import EducationSection from "@/components/sections/EducationSection";
 import ContactSection from "@/components/ContactSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 
 // 🟢 Configuración de sesiones a cargar en el portafolio
 export const CONFIG_SESIONES: Record<
@@ -29,6 +30,10 @@ export const CONFIG_SESIONES: Record<
     title: "Educación // 修行",
     component: EducationSection,
   },
+  experience: {
+    title: "Experiencia // 経験",
+    component: ExperienceSection,
+  },
   contact: {
     title: "Contacto // 連絡先",
     component: ContactSection,
@@ -41,29 +46,6 @@ export const MENU_OPTIONS: MenuOption[] = [
   { label: "Proyectos", id: "projects" },
   { label: "Skills", id: "skills" },
   { label: "Educación", id: "education" },
+  { label: "Experiencia", id: "experience" },
   { label: "Contacto", id: "contact" },
-];
-
-// 🟢 Canales de comunicación oficiales para el mercado nacional e internacional
-
-export const CHANNELS_CONTACT = [
-  {
-    socialNetwork: "✉️ Correo Electrónico",
-    data: "miltonalonsovalenciarincon@gmail.com",
-    action: "mailto:miltonalonsovalenciarincon@gmail.com",
-    labelButton: "Env. Mensaje",
-  },
-  {
-    socialNetwork: "💼 LinkedIn Profesional",
-    data: "Milton Alonso Valencia Rincón",
-    action:
-      "https://www.linkedin.com/in/milton-alonso-valencia-rincon-78054a242",
-    labelButton: "Ver Perfil",
-  },
-  {
-    socialNetwork: "⚔️ Repositorio GitHub",
-    data: "Código Fuente & Arquitecturas",
-    action: "https://github.com", // Más adelante pones tu enlace real
-    labelButton: "Explorar Código",
-  },
 ];

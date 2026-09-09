@@ -99,10 +99,13 @@ export function useProfileForm() {
   };
 
   return {
+    //States
     ...formData,
     isPending,
     successMessage,
     errorMessage,
+
+    //Handlers
     handleChange,
     handleSubmit,
   };

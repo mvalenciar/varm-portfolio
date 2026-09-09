@@ -3,7 +3,7 @@
 import { usePortfolioAudio } from "@/context/AudioContext";
 import { useFurin } from "@/hooks/useFurin";
 import { useEffect } from "react";
-// 🚨 REGLA DE ORO DE NEXT.JS: Enrutador oficial del App Router
+
 import { useRouter } from "next/navigation";
 
 export default function FurinBell() {

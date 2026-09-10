@@ -163,3 +163,12 @@ Sigue estos pasos para levantar el entorno de desarrollo en tu máquina local:
    Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el lienzo cobrar vida.
 
 6. **Inspeccionar la base de datos (Gratis y Visual)**:
+
+## 🎨 Créditos y Propiedad Intelectual (Attribution)
+
+Este portafolio respeta estrictamente los derechos de propiedad intelectual y las licencias de software libre de lucro:
+
+- **Tipografía Amanojaku**: Diseñada por **tkzgraphic** ([hello@tkzgraphic.com](mailto:hello@tkzgraphic.com)).
+- **Tipografía yuzarsif**: Diseñada por **tkzgraphic** ([hello@tkzgraphic.com](mailto:hello@tkzgraphic.com)).
+
+Utilizada bajo la licencia oficial _Free for Personal Use_ para la demostración exclusiva de marca personal y portafolio técnico sin fines de lucro.

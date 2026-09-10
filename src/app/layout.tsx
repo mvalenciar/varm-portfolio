@@ -12,6 +12,7 @@ import FurinBell from "@/components/FurinBell";
 import SakuraCanvas from "@/components/SakuraCanvas";
 import AudioController from "@/components/AudioController";
 import { AudioProvider } from "@/context/AudioContext";
+import SocialNetworks from "@/components/SocialNetworks";
 
 const amanojakuFont = localFont({
   src: "../assets/fonts/Amanojaku.otf",
@@ -46,6 +47,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <SakuraCanvas />
               {/* Campana de viento secreta interactiva */}
               <FurinBell />
+              {/* Enlaces Redes Sociales */}
+              <SocialNetworks />
             </>
           )}
 

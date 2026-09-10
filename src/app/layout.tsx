@@ -30,7 +30,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       lang="es"
       className={`${amanojakuFont.variable} ${yuzarsifFont.variable}`}
     >
-      <body className="antialiased min-h-screen h-screen overflow-hidden relative text-stone-800 bg-stone-50">
+      <body
+        className={`antialiased min-h-screen h-screen overflow-hidden relative text-stone-800 bg-stone-50 ${isAdminRoute ? "cursor-default" : ""}`}
+      >
         <AudioProvider>
           {/* BACKGROUND MONTE FUJI */}
           {!isAdminRoute && (

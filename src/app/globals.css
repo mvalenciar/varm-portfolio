@@ -88,3 +88,9 @@ div {
 .animate-loading-bar {
   animation: loadingBar 1.5s infinite ease-in-out;
 }
+
+/* 🛡️ REGLA PERIMETRAL DE CIBERSEGURIDAD UX: Forzar cursor nativo en el panel */
+body.cursor-default,
+body.cursor-default * {
+  cursor: default !important;
+}

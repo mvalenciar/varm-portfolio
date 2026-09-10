@@ -69,3 +69,22 @@ div {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(138, 28, 20, 0.85); /* Se oscurece la tinta al tocarlo */
 }
+
+/* 🌊 Animación Tradicional para la Barra de Carga Zen */
+@keyframes loadingBar {
+  0% {
+    left: -50%;
+    width: 30%;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
+}
+
+.animate-loading-bar {
+  animation: loadingBar 1.5s infinite ease-in-out;
+}

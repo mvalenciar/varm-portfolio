@@ -32,7 +32,8 @@ El directorio `src/` aplica una separación estricta de responsabilidades. Los c
  ┃ ┗ 📜layout.tsx     # Cascarón inteligente con máscaras de enrutamiento dinámico (usePathname)
  ┣ 📂components
  ┃ ┣ 📂admin          # Formularios de inserción y componentes de analítica (TrafficChart)
- ┃ ┗ 📂sections       # Ventanas modulares de presentación de papel Washi (SOLID)
+ ┃ ┣ 📂sections       # Ventanas modulares de presentación de papel Washi (SOLID)
+ ┃ ┗ 📜SocialNetworks.tsx # Accesos directos desacoplados con SVGs de control cromático nativo
  ┣ 📂context          # Proveedores globales de estado interactivo (AudioContext)
  ┣ 📂generated        # Modelos estricta y nativamente tipados por el motor de Prisma 7
  ┣ 📂hooks            # Capa Operacional: Custom Hooks desacoplados (Lectura/Escritura independientes)
@@ -82,6 +83,31 @@ Los Custom Hooks del visitante (`useVisitorProjects`, `useVisitorSkills`) repudi
 }
 ```
 
+### 🕹️ Motor de Precarga Elástica Multimedia (Client-Side Hydration)
+
+Para blindar la experiencia interactiva frente a conexiones móviles inestables o redes 3G lentas, el archivo raíz `src/app/(visitor)/page.tsx` implementa un orquestador asíncrono basado en `Promise.all` que intercepta los eventos nativos `img.onload` y `audio.oncanplaythrough` de los activos físicos de audio y la imagen de fondo. El sistema congela el estado de hidratación dentro de un escudo perimetral oscuro de 0 KB extras (`VisitorLoading`), liberando el montaje de los componentes interactivos en la RAM estrictamente cuando todos los bytes multimedia han sido cacheados:
+
+```typescript
+const promises = [
+  new Promise<void>((resolve) => {
+    const img = new Image();
+    img.src = "/images/sakura-bg.jpg";
+    img.onload = () => resolve();
+    img.onerror = () => resolve();
+  }),
+  ...audioFiles.map((url) => {
+    return new Promise<void>((resolve) => {
+      const audio = new Audio();
+      audio.src = url;
+      audio.oncanplaythrough = () => resolve();
+      audio.onerror = () => resolve();
+    });
+  }),
+];
+await Promise.all(promises);
+setIsHydrated(true);
+```
+
 ---
 
 ## 🎯 Secciones y Módulos de Datos Sincronizados
@@ -112,12 +138,12 @@ Sigue estos pasos para levantar el entorno de desarrollo en tu máquina local:
    ```
 
 3. **Configurar Variables de Entorno**:
-   Crea un archivo `.env` en la raíz del proyecto e Inyecta tus credenciales cifradas de Supabase:
+   Crea un archivo `.env` en la raíz del proyecto e inyecta tus credenciales de conexión transaccional y directa para el pooler de Supabase:
 
    ```env
    DATABASE_URL="postgresql://postgres:[PASSWORD]@://supabase.com"
    DIRECT_URL="postgresql://postgres:[PASSWORD]@://supabase.com"
-   NEXT_PUBLIC_SUPABASE_URL="https://supabase.co"
+   NEXT_PUBLIC_SUPABASE_URL="https://ucjrrbwdvcgnogrixmte.supabase.co"
    NEXT_PUBLIC_SUPABASE_ANON_KEY="tu-anon-key-cifrada"
    ```
 
@@ -137,14 +163,3 @@ Sigue estos pasos para levantar el entorno de desarrollo en tu máquina local:
    Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el lienzo cobrar vida.
 
 6. **Inspeccionar la base de datos (Gratis y Visual)**:
-   Si deseas revisar, limpiar o auditar de forma gráfica tus registros sin abrir consolas pesadas, enciende la suite de Prisma Studio:
-   ```bash
-   pnpm exec prisma studio --config ./prisma7.config.ts
-   ```
-   E ingresa a [http://localhost:5555](http://localhost:5555).
-
----
-
-## 📄 Licencia
-
-Este ecosistema ha sido desarrollado con fines puramente profesionales, de laboratorio y de práctica de alta ingeniería. Todos los derechos reservados.

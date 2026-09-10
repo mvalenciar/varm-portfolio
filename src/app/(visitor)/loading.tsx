@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 export default function VisitorLoading() {
   return (
     <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-stone-900 font-sans text-stone-100 antialiased selection:bg-red-500 selection:text-white">

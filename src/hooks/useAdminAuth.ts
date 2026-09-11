@@ -3,6 +3,7 @@
 import { useReducer, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { AuthAction, AuthState } from "@/interfaces/adminAuth.interface";
+import { useRouter } from "next/navigation";
 
 // 🥚 ESTADO DE FÁBRICA (INITIAL STATE)
 const initialState: AuthState = {
@@ -47,6 +48,8 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 export function useAdminAuth() {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  const router = useRouter();
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       dispatch({ type: "SET_SESSION", session });
@@ -86,7 +89,15 @@ export function useAdminAuth() {
 
   const handleLogout = async () => {
     dispatch({ type: "LOGOUT_START" });
+
+    if (router) {
+      router.push("/");
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     await supabase.auth.signOut();
+
     dispatch({ type: "LOGOUT_SUCCESS" });
   };
 

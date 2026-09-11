@@ -9,6 +9,7 @@ import FurinBell from "@/components/FurinBell";
 import SakuraCanvas from "@/components/SakuraCanvas";
 import AudioController from "@/components/AudioController";
 import SocialNetworks from "@/components/SocialNetworks";
+import OrientationGuard from "@/components/OrientationGuard";
 
 export default function VisitorPage() {
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
@@ -74,13 +75,17 @@ export default function VisitorPage() {
   }
 
   return (
-    <main className="w-full h-full relative animate-fadeIn">
-      <SakuraCanvas />
-      <CustomCursor />
-      <FurinBell />
-      <AudioController />
-      <SocialNetworks />
-      <WelcomeHero />
+    <main className="w-full h-full relative">
+      <OrientationGuard />
+
+      <div className="w-full h-full landscape:max-md:hidden animate-fadeIn">
+        <SakuraCanvas />
+        <CustomCursor />
+        <FurinBell />
+        <AudioController />
+        <SocialNetworks />
+        <WelcomeHero />
+      </div>
     </main>
   );
 }

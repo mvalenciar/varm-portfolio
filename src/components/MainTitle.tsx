@@ -37,7 +37,7 @@ export default function MainTitle({
             : "transform translate-y-6 opacity-100"
       }`}
     >
-      <h1 className="font-pincel text-7xl md:text-9xl tracking-wider text-stone-950 uppercase drop-shadow-sm">
+      <h1 className="font-pincel text-5xl min-[360px]:text-6xl min-[390px]:text-7xl md:text-9xl tracking-wider text-stone-950 uppercase drop-shadow-sm transition-all duration-300">
         {mainTitle.split("").map((letter) => (
           <span
             key={letter}

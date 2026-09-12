@@ -11,17 +11,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const mockTrafficData = [
-  { name: "Lun", visitas: 12 },
-  { name: "Mar", visitas: 19 },
-  { name: "Mié", visitas: 32 },
-  { name: "Jue", visitas: 54 },
-  { name: "Vie", visitas: 45 },
-  { name: "Sáb", visitas: 23 },
-  { name: "Dom", visitas: 38 },
-];
+interface TrafficPoint {
+  name: string;
+  visits: number;
+}
 
-export default function TrafficChart() {
+interface TrafficChartProps {
+  data: TrafficPoint[];
+}
+
+export default function TrafficChart({ data }: TrafficChartProps) {
   return (
     <section className="border border-stone-200 bg-white p-4 md:p-6 shadow-sm overflow-hidden w-full animate-fadeIn">
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -41,7 +40,7 @@ export default function TrafficChart() {
       <div className="h-64 sm:h-72 w-full text-[10px] sm:text-xs min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={mockTrafficData}
+            data={data}
             margin={{ top: 10, right: 20, left: -25, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#f0eded" />
@@ -57,7 +56,7 @@ export default function TrafficChart() {
             />
             <Line
               type="monotone"
-              dataKey="visitas"
+              dataKey="visits"
               stroke="#dc2626"
               strokeWidth={3}
               activeDot={{ r: 6 }}

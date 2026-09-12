@@ -13,6 +13,7 @@ import ProfileForm from "@/components/admin/forms/ProfileForm";
 import ProjectForm from "@/components/admin/forms/ProjectForm";
 import SkillForm from "@/components/admin/forms/SkillForm";
 import EducationForm from "@/components/admin/forms/EducationForm";
+import { useAdminMetrics } from "@/hooks/useAdminMetrics";
 
 type MainTabType = "metrics" | "forms";
 type SubFormType =
@@ -35,6 +36,8 @@ export default function AdminDashboard() {
     handleLogin,
     handleLogout,
   } = useAdminAuth();
+
+  const { trafficData } = useAdminMetrics();
 
   const [activeTab, setActiveTab] = useState<MainTabType>("metrics");
   const [subForm, setSubForm] = useState<SubFormType>("projects");
@@ -119,7 +122,7 @@ export default function AdminDashboard() {
         {activeTab === "metrics" ? (
           <div className="space-y-6 pb-8">
             <DashboardMetrics />
-            <TrafficChart />
+            <TrafficChart data={trafficData} />
           </div>
         ) : (
           <div className="space-y-6 pb-8 animate-fadeIn">

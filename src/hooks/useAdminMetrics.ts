@@ -3,11 +3,17 @@
 import { Briefcase, Code, Eye, GraduationCap } from "lucide-react";
 import { useEffect, useState } from "react";
 
+interface TrafficPoint {
+  name: string;
+  visits: number;
+}
+
 interface MetricsData {
   skills: number;
   projects: number;
   education: number;
   views: number;
+  chartData: TrafficPoint[];
 }
 
 export function useAdminMetrics() {
@@ -16,6 +22,7 @@ export function useAdminMetrics() {
     projects: 0,
     education: 0,
     views: 0,
+    chartData: [],
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -30,6 +37,15 @@ export function useAdminMetrics() {
             projects: data.projects || 0,
             education: data.education || 0,
             views: data.analytics || 0,
+            chartData: data.chartData || [
+              { name: "Lun", visits: 0 },
+              { name: "Mar", visits: 0 },
+              { name: "Mié", visits: 0 },
+              { name: "Jue", visits: 0 },
+              { name: "Vie", visits: 0 },
+              { name: "Sáb", visits: 0 },
+              { name: "Dom", visits: 0 },
+            ],
           });
         }
       })
@@ -68,6 +84,7 @@ export function useAdminMetrics() {
 
   return {
     cardsConfig,
+    trafficData: metrics.chartData,
     isLoading,
   };
 }

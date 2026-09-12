@@ -18,7 +18,6 @@ interface AudioContextType {
   playFurinSound: () => void;
   playPaperSound: () => void;
   playHyoshigiSound: () => void;
-  playBrushPencilSound: () => void;
   playMokugyoSound: () => void;
   initPortfolioSound: () => void;
 }
@@ -33,7 +32,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const furinRef = useRef<HTMLAudioElement | null>(null);
   const paperRef = useRef<HTMLAudioElement | null>(null);
   const hyoshigiRef = useRef<HTMLAudioElement | null>(null);
-  const brushPencilSoundRef = useRef<HTMLAudioElement | null>(null);
   const mokugyoSoundRef = useRef<HTMLAudioElement | null>(null);
   const furinWindIntroRef = useRef<HTMLAudioElement | null>(null);
 
@@ -43,7 +41,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     paperRef.current = new Audio("/sounds/paperSound.mp3");
     furinRef.current = new Audio("/sounds/furin.ogg");
     hyoshigiRef.current = new Audio("/sounds/hyoshigi.mp3");
-    brushPencilSoundRef.current = new Audio("/sounds/brushPencil.mp3");
     mokugyoSoundRef.current = new Audio("/sounds/mokugyo.flac");
     furinWindIntroRef.current = new Audio("/sounds/furin-wind-chime.mp3");
 
@@ -53,7 +50,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     furinRef.current.volume = 0.4;
     paperRef.current.volume = 0.5;
     hyoshigiRef.current.volume = 0.3;
-    brushPencilSoundRef.current.volume = 0.5;
     mokugyoSoundRef.current.volume = 0.3;
 
     return () => {
@@ -62,7 +58,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       paperRef.current?.pause();
       furinRef.current?.pause();
       hyoshigiRef.current?.pause();
-      brushPencilSoundRef.current?.pause();
       mokugyoSoundRef.current?.pause();
     };
   }, []);
@@ -135,12 +130,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     hyoshigiRef.current.play().catch(() => {});
   }, [isMuted]);
 
-  const playBrushPencilSound = useCallback(() => {
-    if (isMuted || !brushPencilSoundRef.current) return;
-    brushPencilSoundRef.current.currentTime = 0;
-    brushPencilSoundRef.current.play().catch(() => {});
-  }, [isMuted]);
-
   const playMokugyoSound = useCallback(() => {
     if (isMuted || !mokugyoSoundRef.current) return;
     mokugyoSoundRef.current.currentTime = 0;
@@ -163,7 +152,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playFurinSound,
         playPaperSound,
         playHyoshigiSound,
-        playBrushPencilSound,
         playMokugyoSound,
         initPortfolioSound,
       }}

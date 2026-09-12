@@ -29,7 +29,7 @@ export function useAdminMetrics() {
             skills: data.skills || 0,
             projects: data.projects || 0,
             education: data.education || 0,
-            views: data.views || 0,
+            views: data.analytics || 0,
           });
         }
       })

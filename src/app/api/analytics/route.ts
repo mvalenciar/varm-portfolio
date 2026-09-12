@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -31,9 +34,10 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
-    const userAgent = request.headers.get("user-agent") ?? "";
+    const headersList = await headers();
+    const userAgent = headersList.get("user-agent") ?? "";
 
     const isMobile = /mobile|android|iphone|ipad/i.test(userAgent);
     const deviceType = isMobile ? "Mobile" : "Desktop";
